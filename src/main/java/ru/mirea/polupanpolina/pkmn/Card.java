@@ -1,12 +1,13 @@
 package ru.mirea.polupanpolina.pkmn;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Class indicates the given pokemon card.
  * Classwork 3 (UML diagrams).
  */
-public class Card {
+public class Card implements Serializable {
 
     private PokemonStage pokemonStage;
 

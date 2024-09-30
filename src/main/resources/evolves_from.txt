@@ -1,0 +1,10 @@
+1. BASIC
+2. Marill
+3. 60
+4. WATER
+5. -
+6. W/WaterSplash/10, W/TailSlap/30
+7. LIGHTNING
+8.
+9. 1
+10. E

@@ -1,10 +1,12 @@
 package ru.mirea.polupanpolina.pkmn;
 
+import java.io.Serializable;
+
 /**
  * Stores the student's data.
  * Classwork 3 (UML diagrams).
  */
-public class Student {
+public class Student implements Serializable {
 
     private String firstName;
 
