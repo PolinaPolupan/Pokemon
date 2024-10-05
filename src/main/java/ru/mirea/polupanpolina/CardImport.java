@@ -6,11 +6,13 @@ import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import com.google.common.io.Resources;
 
 /**
  * Utility helper class creates Card instances from a file
@@ -40,12 +42,18 @@ public final class CardImport {
                 EnergyType pokemonType = parseEnergyType(sc.nextLine(), EnergyType.COLORLESS);
                 // Parse parent pokemon
                 String ppath =  parseString(sc.nextLine(), " ");
+                Card evolvesFrom;
 
-                URL resource = PkmnApplication.class.getClassLoader().getResource(ppath);
-                String path1 = "";
-                if (resource != null) path1 = Paths.get(resource.toURI()).toString();
+                try {
 
-                Card evolvesFrom = parseCard(path1);
+                    URL resource =  Resources.getResource(ppath);
+                    Path path1 = Paths.get(resource.toURI());
+                    evolvesFrom = parseCard(path1.toString());
+
+                } catch (IllegalArgumentException e) { // getResource throws IllegalArgumentException
+                    evolvesFrom = null;
+                }
+
                 // Parse attack skills
                 List<AttackSkill> skills = parseAttackSkills(sc.nextLine());
                 // Parse weakness type
