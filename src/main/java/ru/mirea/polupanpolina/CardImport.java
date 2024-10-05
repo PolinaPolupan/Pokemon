@@ -112,25 +112,25 @@ public final class CardImport {
             int damage;
 
             try {
-                name = params.get(1).trim();
+                name = parseString(params.get(1).strip(), "defaultName");
             } catch (IndexOutOfBoundsException e) {
-                logger.log(Level.WARNING, "IndexOutOfBoundsException in params[1], using default attack name: defaultAttack");
+                logger.log(Level.WARNING, "IndexOutOfBoundsException in params[1], using default attack name: defaultName");
                 name = "defaultAttack";
             }
             try {
-                description = params.get(1).trim();
+                description = parseString(params.get(1).strip(),"defaultDescription" );
             } catch (IndexOutOfBoundsException e) {
                 logger.log(Level.WARNING, "IndexOutOfBoundsException in params[1], using default description: defaultDescription");
                 description = "defaultDescription";
             }
             try {
-                cost = params.get(0).trim();
+                cost = parseString(params.get(0).strip(), "0");
             } catch (IndexOutOfBoundsException e) {
                 logger.log(Level.WARNING, "IndexOutOfBoundsException in params[0], using default attack cost: 0");
                 cost = "0";
             }
             try {
-                damage = Integer.parseInt(params.get(2).trim());
+                damage = parseInt(params.get(2).strip(), 0);
             } catch (IndexOutOfBoundsException e) {
                 logger.log(Level.WARNING, "IndexOutOfBoundsException in params[2], using default attack damage: 0");
                 damage = 0;
@@ -144,7 +144,7 @@ public final class CardImport {
         return attackSkills;
     }
 
-    private static Student parseStudent(String string) {
+    static Student parseStudent(String string) {
 
         List<String> params = List.of(string.split("/"));
 
@@ -154,25 +154,25 @@ public final class CardImport {
         String group;
 
         try {
-            firstName = params.get(0).trim();
+            firstName = parseString(params.get(1).strip(), "defaultFirstName");
         } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.WARNING, "IndexOutOfBoundsException in params[0], using default first name: defaultFirstName");
+            logger.log(Level.WARNING, "IndexOutOfBoundsException in params[1], using default first name: defaultFirstName");
             firstName = "defaultFirstName";
         }
         try {
-            surName = params.get(1).trim();
+            surName = parseString(params.get(0).strip(), "defaultSurName");
         } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.WARNING, "IndexOutOfBoundsException in params[1], using default surName: defaultSurName");
+            logger.log(Level.WARNING, "IndexOutOfBoundsException in params[0], using default surName: defaultSurName");
             surName = "defaultSurName";
         }
         try {
-            familyName = params.get(2).trim();
+            familyName = parseString(params.get(2).strip(), "defaultFamilyName");
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.WARNING, "IndexOutOfBoundsException in params[2], using default familyName: defaultFamilyName");
             familyName = "defaultFamilyName";
         }
         try {
-            group = params.get(3).trim();
+            group = parseString(params.get(3).strip(), "0");
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.WARNING, "IndexOutOfBoundsException in params[3], using default group: 0");
             group = "0";
@@ -182,7 +182,7 @@ public final class CardImport {
     }
 
     // Method to safely parse PokemonStage with default value
-    private static PokemonStage parsePokemonStage(String line, PokemonStage defaultStage) {
+    static PokemonStage parsePokemonStage(String line, PokemonStage defaultStage) {
         try {
             return PokemonStage.valueOf(line.strip());
         } catch (Exception e) {
@@ -201,7 +201,7 @@ public final class CardImport {
     }
 
     // Method to safely parse int with default value
-    private static int parseInt(String line, int defaultValue) {
+    static int parseInt(String line, int defaultValue) {
         try {
             return Integer.parseInt(line.strip());
         } catch (NumberFormatException e) {
@@ -211,7 +211,7 @@ public final class CardImport {
     }
 
     // Method to safely parse EnergyType with default value
-    private static EnergyType parseEnergyType(String line, EnergyType defaultType) {
+    static EnergyType parseEnergyType(String line, EnergyType defaultType) {
         try {
             return EnergyType.valueOf(line.strip());
         } catch (Exception e) {
@@ -221,7 +221,7 @@ public final class CardImport {
     }
 
     // Method to safely parse a single char with default value
-    private static char parseChar(String line, char defaultValue) {
+    static char parseChar(String line, char defaultValue) {
         if (line != null && !line.isEmpty()) {
             return line.strip().charAt(0);
         }

@@ -1,0 +1,12 @@
+STAGE1
+Azumarill
+120
+FIRE
+evolves_from.txt
+W/Surf/90
+LIGHTNING
+FIRE
+2
+Sword & Shield—Fusion Strike
+E
+Polupan/Polina/Mikhailovna/BSBO-05-23
