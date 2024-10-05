@@ -3,7 +3,6 @@ package ru.mirea.polupanpolina;
 import ru.mirea.polupanpolina.pkmn.*;
 
 import java.io.*;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
@@ -21,6 +20,21 @@ import com.google.common.io.Resources;
 public final class CardImport {
 
     private static final Logger logger =  Logger.getLogger(PkmnApplication.class.getName());
+
+    public static Card deserializeCard(String path) {
+
+        try {
+            FileInputStream fileInputStream = new FileInputStream(path);
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            Card card = (Card) objectInputStream.readObject();
+            logger.log(Level.INFO, String.format("Card is successfully deserialized from the file: %s", card));
+            return card;
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, String.format("%s: Card deserialization failed", e.getMessage()));
+            return null;
+        }
+    }
+
 
     public static Card parseCard(String path) {
 
@@ -87,19 +101,10 @@ public final class CardImport {
                 logger.log(Level.INFO, String.format("Instance of Card is created from file: \n %s", card));
 
                 return card;
-            } catch (URISyntaxException e) {
-                // URISyntaxException handling
-                logger.log(Level.SEVERE, "URISyntaxException");
-                return null;
             }
-
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             // File is not found exception handling
-            logger.log(Level.SEVERE, String.format("File path: %s \n is not found", path));
-            return null;
-        } catch (SecurityException | IOException e) {
-            // Security exception handling
-            logger.log(Level.SEVERE, String.format("File path: %s \n security violation", path));
+            logger.log(Level.SEVERE, String.format("%s: Parsing card failed", e.getMessage()));
             return null;
         }
     }
@@ -114,34 +119,20 @@ public final class CardImport {
 
             List<String> params = List.of(s.split("/"));
 
-            String name;
-            String description;
-            String cost;
-            int damage;
+            String name = "defaultName";
+            String description = "defaultDescription";
+            String cost = "0";
+            int damage = 0;
 
             try {
-                name = parseString(params.get(1).strip(), "defaultName");
-            } catch (IndexOutOfBoundsException e) {
-                logger.log(Level.WARNING, "IndexOutOfBoundsException in params[1], using default attack name: defaultName");
-                name = "defaultAttack";
-            }
-            try {
+
+                name = parseString(params.get(10).strip(), "defaultName");
                 description = parseString(params.get(1).strip(),"defaultDescription" );
-            } catch (IndexOutOfBoundsException e) {
-                logger.log(Level.WARNING, "IndexOutOfBoundsException in params[1], using default description: defaultDescription");
-                description = "defaultDescription";
-            }
-            try {
                 cost = parseString(params.get(0).strip(), "0");
-            } catch (IndexOutOfBoundsException e) {
-                logger.log(Level.WARNING, "IndexOutOfBoundsException in params[0], using default attack cost: 0");
-                cost = "0";
-            }
-            try {
                 damage = parseInt(params.get(2).strip(), 0);
+
             } catch (IndexOutOfBoundsException e) {
-                logger.log(Level.WARNING, "IndexOutOfBoundsException in params[2], using default attack damage: 0");
-                damage = 0;
+                logger.log(Level.WARNING, e.getMessage());
             }
 
             AttackSkill skill = new AttackSkill(name, description, cost, damage);
@@ -156,34 +147,20 @@ public final class CardImport {
 
         List<String> params = List.of(string.split("/"));
 
-        String firstName;
-        String surName;
-        String familyName;
-        String group;
+        String firstName = "defaultFirstName";
+        String surName = "defaultSurName";
+        String familyName = "defaultFamilyName";
+        String group = "0";
 
         try {
+
             firstName = parseString(params.get(1).strip(), "defaultFirstName");
-        } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.WARNING, "IndexOutOfBoundsException in params[1], using default first name: defaultFirstName");
-            firstName = "defaultFirstName";
-        }
-        try {
             surName = parseString(params.get(0).strip(), "defaultSurName");
-        } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.WARNING, "IndexOutOfBoundsException in params[0], using default surName: defaultSurName");
-            surName = "defaultSurName";
-        }
-        try {
             familyName = parseString(params.get(2).strip(), "defaultFamilyName");
-        } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.WARNING, "IndexOutOfBoundsException in params[2], using default familyName: defaultFamilyName");
-            familyName = "defaultFamilyName";
-        }
-        try {
             group = parseString(params.get(3).strip(), "0");
+
         } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.WARNING, "IndexOutOfBoundsException in params[3], using default group: 0");
-            group = "0";
+            logger.log(Level.WARNING, e.getMessage());
         }
 
         return new Student(firstName, surName, familyName, group);

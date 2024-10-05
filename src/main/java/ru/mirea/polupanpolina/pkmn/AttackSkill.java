@@ -1,10 +1,12 @@
 package ru.mirea.polupanpolina.pkmn;
 
+import java.io.Serializable;
+
 /**
  * Class indicates the attack skill of given pokemon.
  * Classwork 3 (UML diagrams);
  */
-public class AttackSkill {
+public class AttackSkill implements Serializable {
 
     private String name;
 
