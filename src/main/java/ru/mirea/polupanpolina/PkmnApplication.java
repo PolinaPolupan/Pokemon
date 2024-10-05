@@ -1,39 +1,25 @@
 package ru.mirea.polupanpolina;
 
 import ru.mirea.polupanpolina.pkmn.Card;
-import ru.mirea.polupanpolina.pkmn.EnergyType;
-import ru.mirea.polupanpolina.pkmn.PokemonStage;
-import ru.mirea.polupanpolina.pkmn.Student;
 
-import java.io.IOException;
-import java.util.List;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PkmnApplication {
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args) throws URISyntaxException {
 
-        Student student = new Student("fist", "sur", "pol", "8");
-        Card card = new Card(
-                PokemonStage.STAGE1,
-                "name",
-                90,
-                EnergyType.COLORLESS,
-                null,
-                List.of(),
-                EnergyType.COLORLESS,
-                EnergyType.DRAGON,
-                "W",
-                "set",
-                'e',
-                student
-        );
+        URL resource = PkmnApplication.class.getClassLoader().getResource("my_card.txt");
 
-        CardImport cardImport = new CardImport("C:\\Users\\student\\IdeaProjects\\Pkmn\\src\\main\\resources\\my_card.txt");
+        Path path = Paths.get(resource.toURI());
 
-       // cardImport.serializeCard(card);
-        String path = "C:\\Users\\student\\IdeaProjects\\Pkmn\\src\\main\\resources\\my_card.txt";
+        Logger logger = Logger.getLogger(PkmnApplication.class.getName());
 
-        Card card1 = cardImport.deserializeCard(path);
+        logger.setLevel(Level.FINE);
 
-        System.out.println(card1.toString());
+        Card card = CardImport.parseCard(path.toString());
     }
 }

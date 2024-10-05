@@ -2,7 +2,7 @@ STAGE1
 Azumarill
 120
 FIRE
--
+evolves_from.txt
 W/Surf/90
 LIGHTNING
 FIRE

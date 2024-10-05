@@ -3,115 +3,138 @@ package ru.mirea.polupanpolina;
 import ru.mirea.polupanpolina.pkmn.*;
 
 import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
 import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class CardImport {
+/**
+ * Utility helper class creates Card instances from a file
+ * Classwork 3 (Task 1).
+ */
+public final class CardImport {
 
-    private String filePath;
+    private static final Logger logger =  Logger.getLogger(PkmnApplication.class.getName());
 
-    public CardImport(String filePath) {
-        this.filePath = filePath;
-    }
+    public static Card parseCard(String path) {
 
-    public void serializeCard(Card card) throws IOException {
+        logger.log(Level.INFO, String.format("Parsing from file path: %s", path));
 
-        File outputFile = new File(filePath);
+        // Creating an instance of InputStream
+        try (InputStream is = new FileInputStream(path)) {
 
-        FileOutputStream fileOutputStream = new FileOutputStream(outputFile);
+            // Creating an instance of Scanner
+            try (Scanner sc = new Scanner(is, StandardCharsets.UTF_8.name())) {
 
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+                //Parse pokemon stage
+                PokemonStage pokemonStage = parsePokemonStage(sc.nextLine(), PokemonStage.BASIC);
+                // Parse pokemon name
+                String name = parseString(sc.nextLine(), "defaultName");
+                //Parse hp
+                int hp = parseInt(sc.nextLine(), 0);
+                // Parse pokemon type
+                EnergyType pokemonType = parseEnergyType(sc.nextLine(), EnergyType.COLORLESS);
+                // Parse parent pokemon
+                String ppath =  parseString(sc.nextLine(), " ");
 
-        objectOutputStream.writeObject(card);
-    }
+                URL resource = PkmnApplication.class.getClassLoader().getResource(ppath);
+                String path1 = "";
+                if (resource != null) path1 = Paths.get(resource.toURI()).toString();
 
-    public Card deserializeCard(String path) throws IOException, ClassNotFoundException {
+                Card evolvesFrom = parseCard(path1);
+                // Parse attack skills
+                List<AttackSkill> skills = parseAttackSkills(sc.nextLine());
+                // Parse weakness type
+                EnergyType weaknessType = parseEnergyType(sc.nextLine(), EnergyType.COLORLESS);
+                // Parse resistance type
+                EnergyType resistanceType = parseEnergyType(sc.nextLine(), EnergyType.COLORLESS);
+                // Parse retreat cost
+                String retreatCost = parseString(sc.nextLine(), "0");
+                // Parse game set
+                String gameSet = parseString(sc.nextLine(), "0");
+                // Parse regulation mark
+                char regulationMark = parseChar(sc.nextLine(), '0');
+                // Parse owner
+                Student pokemonOwner = parseStudent(sc.nextLine());
 
-        // Declaring and initializing the string with
-        // custom path of a file
+                Card card =  new Card(
+                        pokemonStage,
+                        name,
+                        hp,
+                        pokemonType,
+                        evolvesFrom,
+                        skills,
+                        weaknessType,
+                        resistanceType,
+                        retreatCost,
+                        gameSet,
+                        regulationMark,
+                        pokemonOwner
+                );
 
-        // Creating an instance of Inputstream
-        InputStream is = new FileInputStream(path);
+                logger.log(Level.INFO, String.format("Instance of Card is created from file: \n %s", card));
 
-        // Try block to check for exceptions
-        try (Scanner sc = new Scanner(
-                is, StandardCharsets.UTF_8.name())) {
-
-            // It holds true till there is single element
-            // left in the object with usage of hasNext()
-            // method
-
-            PokemonStage pokemonStage = PokemonStage.valueOf(sc.nextLine());
-
-            String name = sc.nextLine();
-
-            System.out.println(name);
-
-            int hp = Integer.parseInt(sc.nextLine());
-
-            System.out.println(hp);
-
-            EnergyType pokemonType = EnergyType.valueOf(sc.nextLine());
-
-            System.out.println(pokemonType);
-
-            Card evolvesFrom = null;
-
-            String ppath = sc.nextLine();
-
-            if (!Objects.equals(ppath, "-")) {
-                evolvesFrom = deserializeCard(ppath);
+                return card;
+            } catch (URISyntaxException e) {
+                // URISyntaxException handling
+                logger.log(Level.SEVERE, "URISyntaxException");
+                return null;
             }
 
-            List<AttackSkill> skills = processAttackSkills(sc.nextLine());
-
-            EnergyType weaknessType = EnergyType.valueOf(sc.nextLine());
-
-            EnergyType resistanceType = EnergyType.valueOf(sc.nextLine());
-
-            String retreatCost = sc.nextLine();
-
-            String gameSet = sc.nextLine();
-
-            char regulationMark = sc.nextLine().charAt(0);
-
-            Student pokemonOwner = processStudent(sc.nextLine());
-
-            Card card = new Card(
-                    pokemonStage,
-                    name,
-                    hp,
-                    pokemonType,
-                    evolvesFrom,
-                    skills,
-                    weaknessType,
-                    resistanceType,
-                    retreatCost,
-                    gameSet,
-                    regulationMark,
-                    pokemonOwner
-            );
-
-            return card;
+        } catch (FileNotFoundException e) {
+            // File is not found exception handling
+            logger.log(Level.SEVERE, String.format("File path: %s \n is not found", path));
+            return null;
+        } catch (SecurityException | IOException e) {
+            // Security exception handling
+            logger.log(Level.SEVERE, String.format("File path: %s \n security violation", path));
+            return null;
         }
     }
 
-    private List<AttackSkill> processAttackSkills(String string) {
+    private static List<AttackSkill> parseAttackSkills(String string) {
 
         List<String> strings = List.of(string.split(","));
 
         List<AttackSkill> attackSkills = new java.util.ArrayList<>(List.of());
 
-        for (int i = 0; i < strings.size(); i++) {
+        for (String s : strings) {
 
-            List<String> params = List.of(strings.get(i).split("/"));
+            List<String> params = List.of(s.split("/"));
 
-            String name = params.get(1);
-            String description = params.get(1);
-            String cost = params.get(0);
-            int damage = Integer.parseInt(params.get(2));
+            String name;
+            String description;
+            String cost;
+            int damage;
+
+            try {
+                name = params.get(1).trim();
+            } catch (IndexOutOfBoundsException e) {
+                logger.log(Level.WARNING, "IndexOutOfBoundsException in params[1], using default attack name: defaultAttack");
+                name = "defaultAttack";
+            }
+            try {
+                description = params.get(1).trim();
+            } catch (IndexOutOfBoundsException e) {
+                logger.log(Level.WARNING, "IndexOutOfBoundsException in params[1], using default description: defaultDescription");
+                description = "defaultDescription";
+            }
+            try {
+                cost = params.get(0).trim();
+            } catch (IndexOutOfBoundsException e) {
+                logger.log(Level.WARNING, "IndexOutOfBoundsException in params[0], using default attack cost: 0");
+                cost = "0";
+            }
+            try {
+                damage = Integer.parseInt(params.get(2).trim());
+            } catch (IndexOutOfBoundsException e) {
+                logger.log(Level.WARNING, "IndexOutOfBoundsException in params[2], using default attack damage: 0");
+                damage = 0;
+            }
 
             AttackSkill skill = new AttackSkill(name, description, cost, damage);
 
@@ -121,19 +144,88 @@ public class CardImport {
         return attackSkills;
     }
 
-    private Student processStudent(String string) {
+    private static Student parseStudent(String string) {
 
         List<String> params = List.of(string.split("/"));
 
-        System.out.println(params);
+        String firstName;
+        String surName;
+        String familyName;
+        String group;
 
-        String firstName = params.get(0);
-        String surName = params.get(1);
-        String familyName = params.get(2);
-        String group = params.get(3);
+        try {
+            firstName = params.get(0).trim();
+        } catch (IndexOutOfBoundsException e) {
+            logger.log(Level.WARNING, "IndexOutOfBoundsException in params[0], using default first name: defaultFirstName");
+            firstName = "defaultFirstName";
+        }
+        try {
+            surName = params.get(1).trim();
+        } catch (IndexOutOfBoundsException e) {
+            logger.log(Level.WARNING, "IndexOutOfBoundsException in params[1], using default surName: defaultSurName");
+            surName = "defaultSurName";
+        }
+        try {
+            familyName = params.get(2).trim();
+        } catch (IndexOutOfBoundsException e) {
+            logger.log(Level.WARNING, "IndexOutOfBoundsException in params[2], using default familyName: defaultFamilyName");
+            familyName = "defaultFamilyName";
+        }
+        try {
+            group = params.get(3).trim();
+        } catch (IndexOutOfBoundsException e) {
+            logger.log(Level.WARNING, "IndexOutOfBoundsException in params[3], using default group: 0");
+            group = "0";
+        }
 
-        Student student = new Student(firstName, surName, familyName, group);
+        return new Student(firstName, surName, familyName, group);
+    }
 
-        return student;
+    // Method to safely parse PokemonStage with default value
+    private static PokemonStage parsePokemonStage(String line, PokemonStage defaultStage) {
+        try {
+            return PokemonStage.valueOf(line.strip());
+        } catch (Exception e) {
+            logger.log(Level.WARNING, "Failed to parse PokemonStage: " + e.getMessage() + ". Using default: " + defaultStage);
+            return defaultStage;
+        }
+    }
+
+    // Method to safely parse String with default value
+    private static String parseString(String line, String defaultValue) {
+        if (line == null || line.isEmpty()) {
+            logger.log(Level.WARNING, "Empty string found, using default: " + defaultValue);
+            return defaultValue;
+        }
+        return line.strip();
+    }
+
+    // Method to safely parse int with default value
+    private static int parseInt(String line, int defaultValue) {
+        try {
+            return Integer.parseInt(line.strip());
+        } catch (NumberFormatException e) {
+            logger.log(Level.WARNING,"Failed to parse int: " + e.getMessage() + ". Using default: " + defaultValue);
+            return defaultValue;
+        }
+    }
+
+    // Method to safely parse EnergyType with default value
+    private static EnergyType parseEnergyType(String line, EnergyType defaultType) {
+        try {
+            return EnergyType.valueOf(line.strip());
+        } catch (Exception e) {
+            logger.log(Level.WARNING,"Failed to parse EnergyType: " + e.getMessage() + ". Using default: " + defaultType);
+            return defaultType;
+        }
+    }
+
+    // Method to safely parse a single char with default value
+    private static char parseChar(String line, char defaultValue) {
+        if (line != null && !line.isEmpty()) {
+            return line.strip().charAt(0);
+        }
+        System.err.println("Failed to parse char, using default: " + defaultValue);
+        return defaultValue;
     }
 }
