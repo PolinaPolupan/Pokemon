@@ -3,10 +3,6 @@ package ru.mirea.polupanpolina;
 import org.junit.Before;
 import org.junit.Test;
 import ru.mirea.polupanpolina.pkmn.*;
-
-
-import java.io.FileWriter;
-import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
@@ -24,6 +20,7 @@ public class CardImportTest {
 
     @Before
     public void setup() throws URISyntaxException {
+
         URL resource =  Resources.getResource(TEST_FILE_PATH);
         Path path = Paths.get(resource.toURI());
 
