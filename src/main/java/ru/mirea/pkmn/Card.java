@@ -1,4 +1,4 @@
-package ru.mirea.polupanpolina.pkmn;
+package ru.mirea.pkmn;
 
 import java.io.Serializable;
 import java.util.List;
@@ -8,12 +8,12 @@ import java.util.List;
  * Classwork 3 (UML diagrams).
  */
 public class Card implements Serializable {
-
+    public static final long serialVersionUID = 1L;
     private PokemonStage pokemonStage;
 
     private String name;
 
-    private int hp;
+    private Integer hp;
 
     private EnergyType pokemonType;
 

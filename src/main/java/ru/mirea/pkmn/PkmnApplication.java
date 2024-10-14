@@ -1,6 +1,5 @@
-package ru.mirea.polupanpolina;
+package ru.mirea.pkmn;
 
-import ru.mirea.polupanpolina.pkmn.Card;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
@@ -8,6 +7,8 @@ import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.google.common.io.Resources;
+import ru.mirea.pkmn.polupanpolina.CardExport;
+import ru.mirea.pkmn.polupanpolina.CardImport;
 
 public class PkmnApplication {
 
@@ -31,7 +32,7 @@ public class PkmnApplication {
 
             CardExport.serializeCard(card, "card.crd");
 
-            URL resource1 =  Resources.getResource("card.crd");
+            URL resource1 =  Resources.getResource("lera.crd");
 
             Path path1 = Paths.get(resource1.toURI());
 

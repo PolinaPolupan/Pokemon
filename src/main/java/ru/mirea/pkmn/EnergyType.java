@@ -1,4 +1,4 @@
-package ru.mirea.polupanpolina.pkmn;
+package ru.mirea.pkmn;
 
 /**
  * Enum class indicates energy type of given pokemon.

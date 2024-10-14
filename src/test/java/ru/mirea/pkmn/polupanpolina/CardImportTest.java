@@ -1,14 +1,17 @@
-package ru.mirea.polupanpolina;
+package ru.mirea.pkmn.polupanpolina;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import ru.mirea.polupanpolina.pkmn.*;
+
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import com.google.common.io.Resources;
+import ru.mirea.pkmn.*;
+import ru.mirea.pkmn.polupanpolina.CardImport;
 
 import static org.junit.Assert.assertEquals;
 
@@ -33,10 +36,10 @@ public class CardImportTest {
     public void testReadCardFromFile_validData() {
 
         // Validate the parsed data
-        assertEquals(PokemonStage.STAGE1, card.getPokemonStage());
+        Assert.assertEquals(PokemonStage.STAGE1, card.getPokemonStage());
         assertEquals("Azumarill", card.getName());
         assertEquals(120, card.getHp());
-        assertEquals(EnergyType.FIRE, card.getPokemonType());
+        Assert.assertEquals(EnergyType.FIRE, card.getPokemonType());
 
         // Validate the AttackSkill
         List<AttackSkill> skills = card.getSkills();

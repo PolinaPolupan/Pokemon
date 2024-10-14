@@ -1,4 +1,4 @@
-package ru.mirea.polupanpolina.pkmn;
+package ru.mirea.pkmn;
 
 /**
  * Enum class indicates the stage of the pokemon.

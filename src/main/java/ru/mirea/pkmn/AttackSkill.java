@@ -1,4 +1,4 @@
-package ru.mirea.polupanpolina.pkmn;
+package ru.mirea.pkmn;
 
 import java.io.Serializable;
 
@@ -8,13 +8,14 @@ import java.io.Serializable;
  */
 public class AttackSkill implements Serializable {
 
+    public static final long serialVersionUID = 1L;
     private String name;
 
     private String description;
 
     private String cost;
 
-    private int damage;
+    private Integer damage;
 
 
     public AttackSkill(String name, String description, String cost, int damage) {

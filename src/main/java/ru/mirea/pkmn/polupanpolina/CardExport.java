@@ -1,6 +1,7 @@
-package ru.mirea.polupanpolina;
+package ru.mirea.pkmn.polupanpolina;
 
-import ru.mirea.polupanpolina.pkmn.Card;
+import ru.mirea.pkmn.Card;
+import ru.mirea.pkmn.PkmnApplication;
 
 import java.io.*;
 import java.util.logging.Level;

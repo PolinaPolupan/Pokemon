@@ -1,18 +1,17 @@
-package ru.mirea.polupanpolina;
+package ru.mirea.pkmn.polupanpolina;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.mirea.polupanpolina.pkmn.Card;
-import ru.mirea.polupanpolina.pkmn.EnergyType;
-import ru.mirea.polupanpolina.pkmn.PokemonStage;
-import ru.mirea.polupanpolina.pkmn.Student;
+import ru.mirea.pkmn.Card;
+import ru.mirea.pkmn.EnergyType;
+import ru.mirea.pkmn.PokemonStage;
+import ru.mirea.pkmn.Student;
 
 import java.io.*;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static ru.mirea.polupanpolina.CardImport.deserializeCard;
+import static ru.mirea.pkmn.polupanpolina.CardImport.deserializeCard;
 
 public class CardDeserializerTest {
 

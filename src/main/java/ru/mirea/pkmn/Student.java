@@ -1,4 +1,4 @@
-package ru.mirea.polupanpolina.pkmn;
+package ru.mirea.pkmn;
 
 import java.io.Serializable;
 
@@ -7,7 +7,7 @@ import java.io.Serializable;
  * Classwork 3 (UML diagrams).
  */
 public class Student implements Serializable {
-
+    public static final long serialVersionUID = 1L;
     private String firstName;
 
     private String surName;
