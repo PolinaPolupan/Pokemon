@@ -1,8 +1,6 @@
 package ru.mirea.polupanpolina;
 
 import ru.mirea.polupanpolina.pkmn.Card;
-
-import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
@@ -12,24 +10,36 @@ import java.util.logging.Logger;
 import com.google.common.io.Resources;
 
 public class PkmnApplication {
-    public static void main(String[] args) throws URISyntaxException {
 
-        URL resource =  Resources.getResource("my_card.txt");
+    public static void main(String[] args) {
 
-        Path path = Paths.get(resource.toURI());
+        testMethods();
+    }
+
+    public static void testMethods() {
 
         Logger logger = Logger.getLogger(PkmnApplication.class.getName());
 
-        logger.setLevel(Level.FINE);
+        try {
+            URL resource =  Resources.getResource("my_card.txt");
 
-        Card card = CardImport.parseCard(path.toString());
+            Path path = Paths.get(resource.toURI());
 
-        CardExport.serializeCard(card, "card.crd");
+            logger.setLevel(Level.FINE);
 
-        URL resource1 =  Resources.getResource("card.crd");
+            Card card = CardImport.parseCard(path.toString());
 
-        Path path1 = Paths.get(resource1.toURI());
+            CardExport.serializeCard(card, "card.crd");
 
-        CardImport.deserializeCard(path1.toString());
+            URL resource1 =  Resources.getResource("card.crd");
+
+            Path path1 = Paths.get(resource1.toURI());
+
+            CardImport.deserializeCard(path1.toString());
+
+        } catch (URISyntaxException e) {
+
+            logger.log(Level.SEVERE, e.getMessage());
+        }
     }
 }
