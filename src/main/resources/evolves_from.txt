@@ -1,12 +1,12 @@
-STAGE1
-Azumarill
+BASIC
+Marill
 120
-FIRE
+WATER
 -
-W/Surf/90
+W/Surf/20
 LIGHTNING
 FIRE
 2
 Sword & Shield—Fusion Strike
-E
+С
 Polupan/Polina/Mikhailovna/BSBO-05-23

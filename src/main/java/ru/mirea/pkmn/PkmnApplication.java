@@ -30,7 +30,7 @@ public class PkmnApplication {
 
             Card card = CardImport.parseCard(path.toString());
 
-            CardExport.serializeCard(card, "card.crd");
+            CardExport.serializeCard(card, "card_for_lera.crd");
 
             URL resource1 =  Resources.getResource("lera.crd");
 

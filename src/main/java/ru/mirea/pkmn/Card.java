@@ -8,6 +8,7 @@ import java.util.List;
  * Classwork 3 (UML diagrams).
  */
 public class Card implements Serializable {
+
     public static final long serialVersionUID = 1L;
     private PokemonStage pokemonStage;
 
