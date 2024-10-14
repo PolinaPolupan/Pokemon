@@ -7,6 +7,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -21,6 +22,11 @@ public final class CardImport {
 
     private static final Logger logger =  Logger.getLogger(PkmnApplication.class.getName());
 
+    /**
+     * Deserializes Card objects from byte format
+     * @param path String path to the file of .crd extension
+     * @return object of class Card
+     */
     public static Card deserializeCard(String path) {
 
         try {
@@ -35,7 +41,11 @@ public final class CardImport {
         }
     }
 
-
+    /**
+     * Parses Card objects from .txt file
+     * @param path String path to the .txt file
+     * @return object of class Card
+     */
     public static Card parseCard(String path) {
 
         logger.log(Level.INFO, String.format("Parsing from file path: %s", path));
@@ -109,14 +119,20 @@ public final class CardImport {
         }
     }
 
+    /**
+     * Helper function to parse attack skills from the string of format:
+     * {cost}/{name}/{damage}, ...
+     */
     private static List<AttackSkill> parseAttackSkills(String string) {
 
+        // "{cost}/{name}/{damage}, {cost1}/{name1}/{damage1}, ..." -> "{cost}/{name}/{damage}", "{cost1}/{name1}/{damage1}", ...
         List<String> strings = List.of(string.split(","));
 
-        List<AttackSkill> attackSkills = new java.util.ArrayList<>(List.of());
+        List<AttackSkill> attackSkills = new ArrayList<>(List.of());
 
         for (String s : strings) {
 
+            // {cost}/{name}/{damage} -> {cost}, {name}, {damage}
             List<String> params = List.of(s.split("/"));
 
             String name = "defaultName";
@@ -143,6 +159,10 @@ public final class CardImport {
         return attackSkills;
     }
 
+    /**
+     * Helper function to parse student from the string of format:
+     * {lastName}/{firstName}/{surName}/{group}
+     */
     static Student parseStudent(String string) {
 
         List<String> params = List.of(string.split("/"));

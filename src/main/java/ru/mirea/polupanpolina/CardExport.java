@@ -14,6 +14,11 @@ public class CardExport {
 
     private static final Logger logger =  Logger.getLogger(PkmnApplication.class.getName());
 
+    /**
+     * Serializes Card objects into byte format
+     * @param card Card object to be serialized
+     * @param fileName String path to the file of .crd extension
+     */
     public static void serializeCard(Card card, String fileName) {
         try {
             File outputFile = new File("output/" + fileName);
