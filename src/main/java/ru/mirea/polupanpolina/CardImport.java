@@ -142,7 +142,7 @@ public final class CardImport {
 
             try {
 
-                name = parseString(params.get(10).strip(), "defaultName");
+                name = parseString(params.get(1).strip(), "defaultName");
                 description = parseString(params.get(1).strip(),"defaultDescription" );
                 cost = parseString(params.get(0).strip(), "0");
                 damage = parseInt(params.get(2).strip(), 0);

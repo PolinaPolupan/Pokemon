@@ -80,7 +80,7 @@ public class CardImportTest {
         List<AttackSkill> skills = card.getSkills();
         assertEquals(1, skills.size());
         AttackSkill skill = skills.get(0);
-        assertEquals("defaultAttack", skill.getName());
+        assertEquals("defaultName", skill.getName());
         assertEquals(0, skill.getDamage());
         assertEquals("0", skill.getCost());
 
