@@ -14,7 +14,7 @@ public class Card implements Serializable {
 
     private String name;
 
-    private Integer hp;
+    private int hp;
 
     private EnergyType pokemonType;
 

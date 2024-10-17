@@ -32,7 +32,7 @@ public class PkmnApplication {
 
             CardExport.serializeCard(card, "card_for_lera.crd");
 
-            URL resource1 =  Resources.getResource("lera.crd");
+            URL resource1 =  Resources.getResource("Hisuian_Arcanine.crd");
 
             Path path1 = Paths.get(resource1.toURI());
 
