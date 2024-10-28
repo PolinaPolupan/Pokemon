@@ -1,5 +1,6 @@
 STAGE1
 Azumarill
+h4
 120
 FIRE
 evolves_from.txt

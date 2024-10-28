@@ -33,6 +33,7 @@ public class CardSerializerTest {
         Card testCard = new Card(
                 PokemonStage.BASIC,
                 "Pikachu",
+                "0",
                 60,
                 EnergyType.LIGHTNING,
                 null,
@@ -60,6 +61,7 @@ public class CardSerializerTest {
         Card testCard = new Card(
                 PokemonStage.BASIC,
                 "Pikachu",
+                "0",
                 60,
                 EnergyType.LIGHTNING,
                 null,

@@ -59,6 +59,7 @@ public final class CardImport {
                 PokemonStage pokemonStage = parsePokemonStage(sc.nextLine(), PokemonStage.BASIC);
                 // Parse pokemon name
                 String name = parseString(sc.nextLine(), "defaultName");
+                String number = parseString(sc.nextLine(), "0");
                 //Parse hp
                 int hp = parseInt(sc.nextLine(), 0);
                 // Parse pokemon type
@@ -95,6 +96,7 @@ public final class CardImport {
                 Card card =  new Card(
                         pokemonStage,
                         name,
+                        number,
                         hp,
                         pokemonType,
                         evolvesFrom,

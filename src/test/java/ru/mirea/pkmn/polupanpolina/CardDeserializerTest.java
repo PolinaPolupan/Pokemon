@@ -23,6 +23,7 @@ public class CardDeserializerTest {
         Card testCard = new Card(
                 PokemonStage.BASIC,
                 "Pikachu",
+                "0",
                 60,
                 EnergyType.LIGHTNING,
                 null,

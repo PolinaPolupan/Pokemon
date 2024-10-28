@@ -9,8 +9,9 @@ import java.util.List;
  */
 public class Card implements Serializable {
 
-    public static final long serialVersionUID = 1L;
     private PokemonStage pokemonStage;
+
+    private String number;
 
     private String name;
 
@@ -35,10 +36,25 @@ public class Card implements Serializable {
     private Student pokemonOwner;
 
 
-    public Card(PokemonStage pokemonStage, String name, int hp, EnergyType pokemonType, Card evolvesFrom, List<AttackSkill> skills, EnergyType weaknessType, EnergyType resistanceType, String retreatCost, String gameSet, char regulationMark, Student pokemonOwner) {
+    public Card(
+            PokemonStage pokemonStage,
+            String name,
+            String number,
+            int hp,
+            EnergyType pokemonType,
+            Card evolvesFrom,
+            List<AttackSkill> skills,
+            EnergyType weaknessType,
+            EnergyType resistanceType,
+            String retreatCost,
+            String gameSet,
+            char regulationMark,
+            Student pokemonOwner
+    ) {
 
         this.pokemonStage = pokemonStage;
         this.name = name;
+        this.number = number;
         this.hp = hp;
         this.pokemonType = pokemonType;
         this.evolvesFrom = evolvesFrom;
@@ -93,6 +109,10 @@ public class Card implements Serializable {
 
     public List<AttackSkill> getSkills() {
         return skills;
+    }
+
+    public void setSkillDescription(int ind, String desc) {
+        this.skills.get(ind).setDescription(desc);
     }
 
     public void setSkills(List<AttackSkill> skills) {
@@ -154,6 +174,7 @@ public class Card implements Serializable {
                 "pokemonStage=" + pokemonStage +
                 ", name='" + name + '\'' +
                 ", hp=" + hp +
+                ", number=" + number +
                 ", pokemonType=" + pokemonType +
                 ", evolvesFrom=" + evolvesFrom +
                 ", skills=" + skills +
