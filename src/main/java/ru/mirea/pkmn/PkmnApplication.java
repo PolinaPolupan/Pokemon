@@ -69,6 +69,9 @@ public class PkmnApplication {
         CardImport.deserializeCard(path1.toString());
 
         DatabaseService db = new DatabaseServiceImpl();
+
+
+        db.saveCardToDatabase(cardFile);
     }
 
     public static void testMethods() {

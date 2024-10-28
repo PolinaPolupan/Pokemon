@@ -1,5 +1,6 @@
 package ru.mirea.pkmn.polupanpolina.web.jdbc;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import ru.mirea.pkmn.Card;
 import ru.mirea.pkmn.Student;
 
@@ -11,7 +12,7 @@ public interface DatabaseService {
 
     Student getStudentFromDatabase(String studentFullName);
 
-    void saveCardToDatabase(Card card) throws SQLException;
+    void saveCardToDatabase(Card card) throws SQLException, JsonProcessingException;
 
     void createPokemonOwner(Student owner);
 }
