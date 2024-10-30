@@ -17,6 +17,7 @@ public class AttackSkill implements Serializable {
 
     private int damage;
 
+    public AttackSkill() {}
 
     public AttackSkill(String name, String description, String cost, int damage) {
 

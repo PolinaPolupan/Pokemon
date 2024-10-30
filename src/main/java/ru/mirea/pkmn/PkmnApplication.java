@@ -1,29 +1,9 @@
 package ru.mirea.pkmn;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.io.Resources;
 import lombok.val;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -33,18 +13,28 @@ import ru.mirea.pkmn.polupanpolina.web.http.PkmnHttpClient;
 import ru.mirea.pkmn.polupanpolina.web.jdbc.DatabaseService;
 import ru.mirea.pkmn.polupanpolina.web.jdbc.DatabaseServiceImpl;
 
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 @SpringBootApplication
 public class PkmnApplication {
 
+    static ApplicationContext context;
+
     public static void main(String[] args) throws URISyntaxException, SQLException, JsonProcessingException {
 
-        ApplicationContext context = SpringApplication.run(PkmnApplication.class, args);
+        context = SpringApplication.run(PkmnApplication.class, args);
 
         // Access the PkmnHttpClient bean
         PkmnHttpClient pkmnHttpClient = context.getBean(PkmnHttpClient.class);
 
-        DatabaseService dbService = context.getBean(DatabaseService.class);
+        DatabaseServiceImpl dbService = context.getBean(DatabaseServiceImpl.class);
 
         testNetwork(pkmnHttpClient);
 
@@ -53,7 +43,7 @@ public class PkmnApplication {
 
     public static void testNetwork(PkmnHttpClient client) throws URISyntaxException {
 
-        Logger logger = Logger.getLogger(PkmnApplication.class.getName()); // Create logger
+        Logger logger = context.getBean(Logger.class); // Create logger
 
         URL resource =  Resources.getResource("my_card.txt"); // Get test resource
 
@@ -114,5 +104,7 @@ public class PkmnApplication {
         Card card = CardImport.parseCard(path.toString());
 
         service.saveCardToDatabase(card);
+        service.getStudentFromDatabase("Polina Polupan Mikhailovna");
+        service.getCardFromDatabase("Azumarill");
     }
 }

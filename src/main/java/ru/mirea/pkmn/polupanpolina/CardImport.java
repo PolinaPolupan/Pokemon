@@ -168,17 +168,17 @@ public final class CardImport {
 
         List<String> params = List.of(string.split("/"));
 
-        String firstName = "defaultFirstName";
-        String surName = "defaultSurName";
-        String familyName = "defaultFamilyName";
-        String group = "0";
+        String firstName = null;
+        String surName = null;
+        String familyName = null;
+        String group = null;
 
         try {
 
-            firstName = parseString(params.get(1).strip(), "defaultFirstName");
-            surName = parseString(params.get(0).strip(), "defaultSurName");
-            familyName = parseString(params.get(2).strip(), "defaultFamilyName");
-            group = parseString(params.get(3).strip(), "0");
+            firstName = parseString(params.get(1).strip(), null);
+            surName = parseString(params.get(2).strip(), null);
+            familyName = parseString(params.get(0).strip(), null);
+            group = parseString(params.get(3).strip(), null);
 
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.WARNING, e.getMessage());

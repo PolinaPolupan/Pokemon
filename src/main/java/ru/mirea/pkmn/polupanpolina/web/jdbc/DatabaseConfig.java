@@ -13,12 +13,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Configuration
 public class DatabaseConfig {
 
     @Bean
-    public Properties databaseProperties() {
+    public Properties databaseProperties(Logger logger) {
 
         Properties databaseProperties = new Properties();
         databaseProperties.setProperty("stringtype", "unspecified");
@@ -32,14 +34,18 @@ public class DatabaseConfig {
 
             databaseProperties.load(new FileInputStream(path.toString()));
 
-        } catch (Exception ignored) {}
+            logger.log(Level.INFO, "Database properties are set");
 
+        } catch (Exception e) {
+
+            logger.log(Level.SEVERE, "Database properties error: " + e.getMessage());
+        }
 
         return databaseProperties;
     }
 
     @Bean
-    public Connection connection(Properties databaseProperties) {
+    public Connection connection(Properties databaseProperties, Logger logger) {
 
         Connection connection = null;
 
@@ -49,15 +55,18 @@ public class DatabaseConfig {
                     databaseProperties.getProperty("database.user"),
                     databaseProperties.getProperty("database.password")
             );
-        } catch (SQLException ignored) {
 
+            logger.log(Level.INFO, "Database connection is set");
+        } catch (SQLException e) {
+
+            logger.log(Level.SEVERE, "Database connection error: " + e.getMessage());
         }
 
         return connection;
     }
 
     @Bean
-    public DatabaseService databaseService(Connection connection) {
-        return new DatabaseServiceImpl(connection);
+    public DatabaseServiceImpl databaseService(Connection connection, Logger logger) {
+        return new DatabaseServiceImpl(connection, logger);
     }
 }
