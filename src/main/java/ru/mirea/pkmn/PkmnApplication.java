@@ -18,6 +18,7 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.io.Resources;
@@ -36,14 +37,18 @@ import ru.mirea.pkmn.polupanpolina.web.jdbc.DatabaseServiceImpl;
 @SpringBootApplication
 public class PkmnApplication {
 
-    public static void main(String[] args) throws URISyntaxException {
+    public static void main(String[] args) throws URISyntaxException, SQLException, JsonProcessingException {
 
         ApplicationContext context = SpringApplication.run(PkmnApplication.class, args);
 
         // Access the PkmnHttpClient bean
         PkmnHttpClient pkmnHttpClient = context.getBean(PkmnHttpClient.class);
 
+        DatabaseService dbService = context.getBean(DatabaseService.class);
+
         testNetwork(pkmnHttpClient);
+
+        testDatabase(dbService);
     }
 
     public static void testNetwork(PkmnHttpClient client) throws URISyntaxException {
@@ -98,5 +103,16 @@ public class PkmnApplication {
         };
 
         client.getPokemonCard("azumarill", "h4", callback);
+    }
+
+    public static void testDatabase(DatabaseService service) throws URISyntaxException, SQLException, JsonProcessingException {
+
+        URL resource =  Resources.getResource("my_card.txt"); // Get test resource
+
+        Path path = Paths.get(resource.toURI());
+
+        Card card = CardImport.parseCard(path.toString());
+
+        service.saveCardToDatabase(card);
     }
 }

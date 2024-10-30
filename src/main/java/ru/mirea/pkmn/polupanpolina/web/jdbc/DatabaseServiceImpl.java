@@ -3,6 +3,7 @@ package ru.mirea.pkmn.polupanpolina.web.jdbc;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.postgresql.util.PGobject;
+import org.springframework.beans.factory.annotation.Autowired;
 import ru.mirea.pkmn.Card;
 import ru.mirea.pkmn.Student;
 
@@ -16,32 +17,15 @@ public class DatabaseServiceImpl implements DatabaseService {
 
     private final Connection connection;
 
-    private final Properties databaseProperties;
+    @Autowired
+    public DatabaseServiceImpl(Connection connection) {
 
-    public DatabaseServiceImpl() throws SQLException, IOException {
-
-        // Загружаем файл database.properties
-
-        databaseProperties = new Properties();
-        databaseProperties.load(new FileInputStream("C:\\Users\\student\\IdeaProjects\\Pkmn\\src\\main\\resources\\database.properties"));
-        databaseProperties.setProperty("stringtype", "unspecified");
-        // Подключаемся к базе данных
-
-        connection = DriverManager.getConnection(
-                databaseProperties.getProperty("database.url"),
-                databaseProperties.getProperty("database.user"),
-                databaseProperties.getProperty("database.password")
-        );
-        System.out.println("Connection is "+(connection.isValid(0) ? "up" : "down"));
-
-        //createCardTable();
+        this.connection = connection;
     }
 
     @Override
     public Card getCardFromDatabase(String cardName) {
         // Реализовать получение данных о карте из БД
-
-
 
         return null;
     }
