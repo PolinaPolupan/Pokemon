@@ -8,7 +8,11 @@ import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
+import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -17,21 +21,36 @@ import java.util.stream.StreamSupport;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.io.Resources;
+import lombok.val;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 import ru.mirea.pkmn.polupanpolina.CardExport;
 import ru.mirea.pkmn.polupanpolina.CardImport;
 import ru.mirea.pkmn.polupanpolina.web.http.PkmnHttpClient;
 import ru.mirea.pkmn.polupanpolina.web.jdbc.DatabaseService;
 import ru.mirea.pkmn.polupanpolina.web.jdbc.DatabaseServiceImpl;
 
+
+@SpringBootApplication
 public class PkmnApplication {
 
-    public static void main(String[] args) throws IOException, URISyntaxException, SQLException {
+    public static void main(String[] args) throws URISyntaxException {
 
-        testMethods();
+        ApplicationContext context = SpringApplication.run(PkmnApplication.class, args);
 
-        Logger logger = Logger.getLogger(PkmnApplication.class.getName());
+        // Access the PkmnHttpClient bean
+        PkmnHttpClient pkmnHttpClient = context.getBean(PkmnHttpClient.class);
 
-        URL resource =  Resources.getResource("my_card.txt");
+        testNetwork(pkmnHttpClient);
+    }
+
+    public static void testNetwork(PkmnHttpClient client) throws URISyntaxException {
+
+        Logger logger = Logger.getLogger(PkmnApplication.class.getName()); // Create logger
+
+        URL resource =  Resources.getResource("my_card.txt"); // Get test resource
 
         Path path = Paths.get(resource.toURI());
 
@@ -39,43 +58,45 @@ public class PkmnApplication {
 
         Card cardFile = CardImport.parseCard(path.toString());
 
+        val callback = new PkmnHttpClient.PokemonCardCallback() {
+            @Override
+            public void onSuccess(JsonNode cardData) {
 
-        PkmnHttpClient pkmnHttpClient = new PkmnHttpClient();
+                logger.log(Level.INFO,"Card data: " + cardData); // Log data
 
-        JsonNode card = pkmnHttpClient.getPokemonCard("azumarill", "h4");
-        System.out.println(card.toPrettyString());
+                val attacks = cardData.findValues("attacks"); // Find attacks section
 
-        List<JsonNode> attacks = StreamSupport
-                .stream(card.findValues("attacks").spliterator(), false)
-                .collect(Collectors.toList());
+                int ind = 0; // Index is needed to iterate over attack skills
 
+                for (final JsonNode objNode : attacks) {
+                    JsonNode text = objNode.findValue("text");
 
-        int ind = 0;
-        for (final JsonNode objNode : attacks) {
-            JsonNode text = objNode.findValue("text");
-            System.out.println(text.toString());
+                    logger.log(Level.INFO, "Attack description: " + text.toString().replace('"', ' ').strip() );
 
-            cardFile.setSkillDescription(ind, text.toString());
-            ind++;
-        }
+                    cardFile.setSkillDescription(ind, text.toString());
+                    ind++;
+                }
 
-        System.out.println(cardFile.toString());
-        CardExport.serializeCard(cardFile, "export.crd");
+                String EXPORT_PATH = "export.crd";
 
-        URL resource1 =  Resources.getResource("export.crd");
+                CardExport.serializeCard(cardFile, EXPORT_PATH);
 
-        Path path1 = Paths.get(resource1.toURI());
+                try {
+                    URL resource =  Resources.getResource(EXPORT_PATH);
 
-        CardImport.deserializeCard(path1.toString());
+                    Path path = Paths.get(resource.toURI());
 
-        DatabaseService db = new DatabaseServiceImpl();
+                    CardImport.deserializeCard(path.toString());
 
+                } catch (URISyntaxException ignored) {}
+            }
 
-        db.saveCardToDatabase(cardFile);
-    }
+            @Override
+            public void onError(Throwable error) {
+                logger.log(Level.SEVERE,"Failed to fetch card: " + error.getMessage());
+            }
+        };
 
-    public static void testMethods() {
-
-
+        client.getPokemonCard("azumarill", "h4", callback);
     }
 }

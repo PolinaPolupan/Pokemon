@@ -1,38 +1,46 @@
 package ru.mirea.pkmn.polupanpolina.web.http;
 
-
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import lombok.Singular;
+import org.springframework.beans.factory.annotation.Autowired;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.jackson.JacksonConverterFactory;
 
-import java.io.IOException;
 
+import retrofit2.Call;
+import retrofit2.Callback;
 
 
 public class PkmnHttpClient {
 
-    Retrofit client;
+    private PokemonTcgAPI tcgAPI;
 
-    PokemonTcgAPI tcgAPI;
-
-    public PkmnHttpClient() {
-        client = new Retrofit.Builder()
-                .baseUrl("https://api.pokemontcg.io")
-                .addConverterFactory(JacksonConverterFactory.create(new JsonMapper()))
-                .build();
-
-        tcgAPI = client.create(PokemonTcgAPI.class);
+    @Autowired
+    PkmnHttpClient(PokemonTcgAPI tcgAPI) {
+        this.tcgAPI = tcgAPI;
     }
 
-    public JsonNode getPokemonCard(String name, String number) throws IOException {
-        String requestQuery = "name:\""+name+"\"" + " " + "number:"+number;
+    public void getPokemonCard(String name, String number, PokemonCardCallback callback) {
+        String requestQuery = "name:\"" + name + "\" number:" + number;
 
-        Response<JsonNode> response = tcgAPI.getPokemon(requestQuery).execute();
+        Call<JsonNode> call = tcgAPI.getPokemon(requestQuery);
+        call.enqueue(new Callback<JsonNode>() {
+            @Override
+            public void onResponse(Call<JsonNode> call, Response<JsonNode> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(response.body());
+                } else {
+                    callback.onError(new Exception("Request failed with code: " + response.code()));
+                }
+            }
 
-        return response.body();
+            @Override
+            public void onFailure(Call<JsonNode> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
+    public interface PokemonCardCallback {
+        void onSuccess(JsonNode cardData);
+        void onError(Throwable error);
     }
 }
-
