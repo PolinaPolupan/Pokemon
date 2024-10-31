@@ -1,14 +1,8 @@
 package ru.mirea.pkmn.polupanpolina.web.jdbc;
 
-import com.google.common.io.Resources;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import ru.mirea.pkmn.polupanpolina.CardImport;
-
-import java.io.FileInputStream;
-import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import ru.mirea.pkmn.utils.ResourceFileLoader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -20,19 +14,13 @@ import java.util.logging.Logger;
 public class DatabaseConfig {
 
     @Bean
-    public Properties databaseProperties(Logger logger) {
+    public Properties databaseProperties(Logger logger, ResourceFileLoader loader) {
 
         Properties databaseProperties = new Properties();
         databaseProperties.setProperty("stringtype", "unspecified");
 
         try {
-            URL resource =  Resources.getResource("database.properties");
-
-            Path path = Paths.get(resource.toURI());
-
-            CardImport.deserializeCard(path.toString());
-
-            databaseProperties.load(new FileInputStream(path.toString()));
+            databaseProperties.load(loader.getResourceFile("database.properties"));
 
             logger.log(Level.INFO, "Database properties are set");
 

@@ -1,8 +1,6 @@
 package ru.mirea.pkmn;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.google.common.io.Resources;
 import lombok.val;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,12 +10,8 @@ import ru.mirea.pkmn.polupanpolina.CardImport;
 import ru.mirea.pkmn.polupanpolina.web.http.PkmnHttpClient;
 import ru.mirea.pkmn.polupanpolina.web.jdbc.DatabaseService;
 import ru.mirea.pkmn.polupanpolina.web.jdbc.DatabaseServiceImpl;
-
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.sql.SQLException;
+import ru.mirea.pkmn.utils.ResourceFileLoader;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,11 +21,10 @@ public class PkmnApplication {
 
     static ApplicationContext context;
 
-    public static void main(String[] args) throws URISyntaxException, SQLException, JsonProcessingException {
+    public static void main(String[] args) {
 
         context = SpringApplication.run(PkmnApplication.class, args);
 
-        // Access the PkmnHttpClient bean
         PkmnHttpClient pkmnHttpClient = context.getBean(PkmnHttpClient.class);
 
         DatabaseServiceImpl dbService = context.getBean(DatabaseServiceImpl.class);
@@ -41,17 +34,15 @@ public class PkmnApplication {
         testDatabase(dbService);
     }
 
-    public static void testNetwork(PkmnHttpClient client) throws URISyntaxException {
+    public static void testNetwork(PkmnHttpClient client) {
 
         Logger logger = context.getBean(Logger.class); // Create logger
 
-        URL resource =  Resources.getResource("my_card.txt"); // Get test resource
-
-        Path path = Paths.get(resource.toURI());
+        ResourceFileLoader loader = context.getBean(ResourceFileLoader.class);
 
         logger.setLevel(Level.FINE);
 
-        Card cardFile = CardImport.parseCard(path.toString());
+        Card cardFile = CardImport.parseCard(loader.getResourcePath("my_card.txt"));
 
         val callback = new PkmnHttpClient.PokemonCardCallback() {
             @Override
@@ -68,6 +59,7 @@ public class PkmnApplication {
 
                     logger.log(Level.INFO, "Attack description: " + text.toString().replace('"', ' ').strip() );
 
+                    assert cardFile != null;
                     cardFile.setSkillDescription(ind, text.toString());
                     ind++;
                 }
@@ -76,14 +68,8 @@ public class PkmnApplication {
 
                 CardExport.serializeCard(cardFile, EXPORT_PATH);
 
-                try {
-                    URL resource =  Resources.getResource(EXPORT_PATH);
+                CardImport.deserializeCard(loader.getResourcePath(EXPORT_PATH));
 
-                    Path path = Paths.get(resource.toURI());
-
-                    CardImport.deserializeCard(path.toString());
-
-                } catch (URISyntaxException ignored) {}
             }
 
             @Override
@@ -95,16 +81,16 @@ public class PkmnApplication {
         client.getPokemonCard("azumarill", "h4", callback);
     }
 
-    public static void testDatabase(DatabaseService service) throws URISyntaxException, SQLException, JsonProcessingException {
+    public static void testDatabase(DatabaseService service) {
 
-        URL resource =  Resources.getResource("my_card.txt"); // Get test resource
+        ResourceFileLoader loader = context.getBean(ResourceFileLoader.class);
 
-        Path path = Paths.get(resource.toURI());
-
-        Card card = CardImport.parseCard(path.toString());
+        Card card = CardImport.parseCard(loader.getResourcePath("my_card.txt"));
 
         service.saveCardToDatabase(card);
         service.getStudentFromDatabase("Polina Polupan Mikhailovna");
-        service.getCardFromDatabase("Azumarill");
+
+        UUID uuid = UUID.fromString("05be7b93-17fa-3459-a0f4-c62f7628796d");
+        service.getCardFromDatabase(uuid);
     }
 }
