@@ -9,7 +9,6 @@ import ru.mirea.pkmn.polupanpolina.CardExport;
 import ru.mirea.pkmn.polupanpolina.CardImport;
 import ru.mirea.pkmn.polupanpolina.web.http.PkmnHttpClient;
 import ru.mirea.pkmn.polupanpolina.web.jdbc.DatabaseService;
-import ru.mirea.pkmn.polupanpolina.web.jdbc.DatabaseServiceImpl;
 import ru.mirea.pkmn.utils.ResourceFileLoader;
 import java.util.UUID;
 import java.util.logging.Level;
