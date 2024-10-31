@@ -54,7 +54,7 @@ public class DatabaseConfig {
     }
 
     @Bean
-    public DatabaseServiceImpl databaseService(Connection connection, Logger logger) {
+    public DatabaseService databaseService(Connection connection, Logger logger) {
         return new DatabaseServiceImpl(connection, logger);
     }
 }
