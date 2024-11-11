@@ -1,0 +1,5 @@
+ext.pathMapper = [:]
+ext.pathMapper.put('<<target java executable path>>', '<<target java executable path>>')
+ext.pathMapper.put('//wsl\$/UbuntuPolina/root/Projects/Pkmn', '/root/Projects/Pkmn')
+ext.pathMapper.put("<<target java executable path>>", '/root/.jdks/corretto-17.0.13/bin/java')
+ext.mapPath = { path -> pathMapper.get(path) ?: path }
