@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteTargetsManager">
+    <option name="projectDefaultTargetUuid" value="f163867e-2483-456d-a2f3-3a13b5866f2f" />
+    <targets>
+      <target name="WSL - UbuntuPolina" type="wsl" uuid="f163867e-2483-456d-a2f3-3a13b5866f2f">
+        <config>
+          <option name="distributionMsId" value="UbuntuPolina" />
+          <option name="projectRootOnTarget" value="&lt;3&gt;WSL (3714) ERROR: CreateProcessParseCommon:800: getpwnam(polina) failed 0&#10;/mnt/c/Program Files/JetBrains/IntelliJ IDEA 2022.1.2/jbr/bin&#10;/Pkmn" />
+        </config>
+        <ContributedStateBase type="JavaLanguageRuntime">
+          <config>
+            <option name="homePath" value="/root/.jdks/corretto-17.0.13" />
+            <option name="javaVersionString" value="21.0.4" />
+          </config>
+        </ContributedStateBase>
+      </target>
+    </targets>
+  </component>
+</project>

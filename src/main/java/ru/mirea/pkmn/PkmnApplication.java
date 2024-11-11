@@ -1,7 +1,6 @@
 package ru.mirea.pkmn;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import lombok.val;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -10,6 +9,8 @@ import ru.mirea.pkmn.polupanpolina.CardImport;
 import ru.mirea.pkmn.polupanpolina.web.http.PkmnHttpClient;
 import ru.mirea.pkmn.polupanpolina.web.jdbc.DatabaseService;
 import ru.mirea.pkmn.utils.ResourceFileLoader;
+
+import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,13 +44,13 @@ public class PkmnApplication {
 
         Card cardFile = CardImport.parseCard(loader.getResourcePath("my_card.txt"));
 
-        val callback = new PkmnHttpClient.PokemonCardCallback() {
+        PkmnHttpClient.PokemonCardCallback callback = new PkmnHttpClient.PokemonCardCallback() {
             @Override
             public void onSuccess(JsonNode cardData) {
 
                 logger.log(Level.INFO,"Card data: " + cardData); // Log data
 
-                val attacks = cardData.findValues("attacks"); // Find attacks section
+                List<JsonNode> attacks = cardData.findValues("attacks"); // Find attacks section
 
                 int ind = 0; // Index is needed to iterate over attack skills
 
