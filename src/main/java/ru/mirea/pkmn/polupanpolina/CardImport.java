@@ -109,7 +109,7 @@ public final class CardImport {
                         pokemonOwner
                 );
 
-                logger.log(Level.INFO, String.format("Instance of Card is created from file: \n %s", card));
+               logger.log(Level.INFO, String.format("Instance of Card is created from file: \n %s", card));
 
                 return card;
             }

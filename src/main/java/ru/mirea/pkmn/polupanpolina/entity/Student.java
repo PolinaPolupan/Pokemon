@@ -16,8 +16,11 @@ public class Student {
     @Id
     private UUID id;
 
+    @Column(name = "firstName")
     private String firstName;
+    @Column(name = "patronicName")
     private String patronicName;
+    @Column(name = "familyName")
     private String familyName;
     private String group;
 }

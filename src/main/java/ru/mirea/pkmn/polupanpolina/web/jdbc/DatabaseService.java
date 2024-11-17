@@ -1,7 +1,7 @@
 package ru.mirea.pkmn.polupanpolina.web.jdbc;
 
-import ru.mirea.pkmn.Card;
-import ru.mirea.pkmn.Student;
+import ru.mirea.pkmn.polupanpolina.entity.Card;
+import ru.mirea.pkmn.polupanpolina.entity.Student;
 
 import java.util.UUID;
 

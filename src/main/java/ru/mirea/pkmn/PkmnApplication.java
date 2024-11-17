@@ -31,7 +31,7 @@ public class PkmnApplication {
 
    //     testNetwork(pkmnHttpClient);
 
-       // testDatabase(dbService);
+        testDatabase(dbService);
     }
 
     public static void testNetwork(PkmnHttpClient client) {
@@ -60,7 +60,7 @@ public class PkmnApplication {
                     logger.log(Level.INFO, "Attack description: " + text.toString().replace('"', ' ').strip() );
 
                     assert cardFile != null;
-                    cardFile.setSkillDescription(ind, text.toString());
+                 //   cardFile.setSkillDescription(ind, text.toString());
                     ind++;
                 }
 
@@ -83,14 +83,22 @@ public class PkmnApplication {
 
     public static void testDatabase(DatabaseService service) {
 
+        Logger logger = context.getBean(Logger.class); // Create logger
+
         ResourceFileLoader loader = context.getBean(ResourceFileLoader.class);
 
         Card card = CardImport.parseCard(loader.getResourcePath("my_card.txt"));
 
-        service.saveCardToDatabase(card);
-        service.getStudentFromDatabase("Polina Polupan Mikhailovna");
+        service.saveCardToDatabase(card.toEntity());
 
-        UUID uuid = UUID.fromString("05be7b93-17fa-3459-a0f4-c62f7628796d");
-        service.getCardFromDatabase(uuid);
+
+        ru.mirea.pkmn.polupanpolina.entity.Student student = service.getStudentFromDatabase("Polina Polupan Mikhailovna");
+
+        logger.log(Level.INFO, student.toString());
+
+         UUID uuid = UUID.fromString("05be7b93-17fa-3459-a0f4-c62f7628796d");
+        ru.mirea.pkmn.polupanpolina.entity.Card dCard = service.getCardFromDatabase(uuid);
+
+        logger.log(Level.INFO, dCard.toString());
     }
 }

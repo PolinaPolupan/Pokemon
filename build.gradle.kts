@@ -42,9 +42,17 @@ dependencies {
     implementation("org.springframework.boot:spring-boot:3.3.5")
     implementation("jakarta.servlet:jakarta.servlet-api:5.0.0")
     implementation("org.hibernate.orm:hibernate-core:6.3.0.Final")
+    implementation("com.vladmihalcea:hibernate-types-60:2.21.1")
+
+    implementation("org.slf4j:slf4j-api:2.0.9")
+    implementation("org.slf4j:slf4j-simple:2.0.9")
 
     compileOnly("org.jetbrains:annotations:24.1.0")
-    compileOnly("org.projectlombok:lombok")
+
+    compileOnly ("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
+    testCompileOnly("org.projectlombok:lombok")
+    testAnnotationProcessor("org.projectlombok:lombok")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.5")
     testImplementation("junit:junit")

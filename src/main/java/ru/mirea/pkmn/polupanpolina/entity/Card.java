@@ -1,9 +1,11 @@
 package ru.mirea.pkmn.polupanpolina.entity;
 
+import com.vladmihalcea.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 import ru.mirea.pkmn.AttackSkill;
 
 import java.util.List;
@@ -38,6 +40,7 @@ public class Card {
     @JoinColumn(name = "evolves_from")
     private Card evolvesFrom;
 
+    @Type(JsonType.class)
     @Column(name = "attack_skills", columnDefinition = "json")
     private List<AttackSkill> attackSkills;
 }

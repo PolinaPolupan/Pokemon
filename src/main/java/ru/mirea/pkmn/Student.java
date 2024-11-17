@@ -1,13 +1,22 @@
 package ru.mirea.pkmn;
 
+import jakarta.persistence.Column;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
+import java.util.UUID;
 
 /**
  * Stores the student's data.
  * Classwork 3 (UML diagrams).
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Student implements Serializable {
-    public static final long serialVersionUID = 1L;
+
     private String firstName;
 
     private String surName;
@@ -16,54 +25,17 @@ public class Student implements Serializable {
 
     private String group;
 
+    public ru.mirea.pkmn.polupanpolina.entity.Student toEntity() {
+        // Generate a UUID using a combination of unique fields
+        UUID studentUuid = UUID.nameUUIDFromBytes((toString()).getBytes());
 
-    public Student(String firstName, String surName, String familyName, String group) {
-
-        this.firstName = firstName;
-        this.surName = surName;
-        this.familyName = familyName;
-        this.group = group;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getSurName() {
-        return surName;
-    }
-
-    public void setSurName(String surName) {
-        this.surName = surName;
-    }
-
-    public String getFamilyName() {
-        return familyName;
-    }
-
-    public void setFamilyName(String familyName) {
-        this.familyName = familyName;
-    }
-
-    public String getGroup() {
-        return group;
-    }
-
-    public void setGroup(String group) {
-        this.group = group;
-    }
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                "firstName='" + firstName + '\'' +
-                ", surName='" + surName + '\'' +
-                ", familyName='" + familyName + '\'' +
-                ", group='" + group + '\'' +
-                '}';
+        // Map fields to the entity
+        return new ru.mirea.pkmn.polupanpolina.entity.Student(
+                studentUuid,    // id
+                this.firstName, // firstName
+                this.surName,   // patronicName (mapped from surName)
+                this.familyName,// familyName
+                this.group      // group
+        );
     }
 }
