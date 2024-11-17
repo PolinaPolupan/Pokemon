@@ -17,7 +17,7 @@ public class Student {
     private UUID id;
 
     private String firstName;
-    private String surName;
+    private String patronicName;
     private String familyName;
     private String group;
 }

@@ -19,11 +19,16 @@ public class Card {
     private UUID id;
 
     private String name;
-    private int hp;
+    @Column(columnDefinition = "smallint")
+    private short hp;
+    @Column(name = "game_set")
     private String gameSet;
+    @Column(name = "retreat_cost")
     private String retreatCost;
-    private String regulationMark;
-    private String number;
+    @Column(name = "regulation_mark")
+    private char regulationMark;
+    @Column(name = "card_number")
+    private String cardNumber;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pokemon_owner")
@@ -33,7 +38,6 @@ public class Card {
     @JoinColumn(name = "evolves_from")
     private Card evolvesFrom;
 
-    @ElementCollection
     @Column(name = "attack_skills", columnDefinition = "json")
-    private List<AttackSkill> skills;
+    private List<AttackSkill> attackSkills;
 }

@@ -1,5 +1,6 @@
 package ru.mirea.pkmn.polupanpolina.web.jdbc;
 
+import jakarta.persistence.EntityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.mirea.pkmn.utils.ResourceFileLoader;
@@ -54,7 +55,7 @@ public class DatabaseConfig {
     }
 
     @Bean
-    public DatabaseService databaseService(Connection connection, Logger logger) {
-        return new DatabaseServiceImpl(connection, logger);
+    public DatabaseService databaseService(EntityManager em, Connection connection, Logger logger) {
+        return new DatabaseServiceImpl(em, connection, logger);
     }
 }

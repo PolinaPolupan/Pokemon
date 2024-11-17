@@ -29,9 +29,9 @@ public class PkmnApplication {
 
         DatabaseService dbService = context.getBean(DatabaseService.class);
 
-        testNetwork(pkmnHttpClient);
+   //     testNetwork(pkmnHttpClient);
 
-        testDatabase(dbService);
+       // testDatabase(dbService);
     }
 
     public static void testNetwork(PkmnHttpClient client) {

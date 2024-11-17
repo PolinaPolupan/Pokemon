@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:postgresql://services.tms-studio.ru:8095/pkmn_db_test</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="pkmn_db@services.tms-studio.ru" uuid="f6e9c7f4-0a5b-41fd-9676-91f375065d82">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://services.tms-studio.ru:8095/pkmn_db</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
