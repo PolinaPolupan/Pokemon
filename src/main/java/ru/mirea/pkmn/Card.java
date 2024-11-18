@@ -48,21 +48,22 @@ public class Card implements Serializable {
         // Generate a UUID based on some unique field combination
         UUID cardUuid = UUID.nameUUIDFromBytes((name + number).getBytes());
 
-        // Convert the 'evolvesFrom' field if it's not null
-        ru.mirea.pkmn.polupanpolina.entity.Card evolvesFromEntity = evolvesFrom != null ? evolvesFrom.toEntity() : null;
-
         // Create and return the entity object
         return new ru.mirea.pkmn.polupanpolina.entity.Card(
-                cardUuid,                     // id
-                this.name,                    // name
-                (short) this.hp,              // hp (cast int to short)
-                this.gameSet,                 // gameSet
-                this.retreatCost,             // retreatCost
-                this.regulationMark,          // regulationMark
-                this.number,                  // cardNumber
-                this.pokemonOwner.toEntity(),            // pokemonOwner
-                evolvesFromEntity,            // evolvesFrom
-                this.skills                   // attackSkills
+                cardUuid,
+                name,
+                (short) hp,
+                evolvesFrom != null ? evolvesFrom.toEntity() : null,
+                gameSet,
+                pokemonOwner != null ? pokemonOwner.toEntity() : null,
+                pokemonStage.name(),
+                retreatCost,
+                weaknessType.name(),
+                resistanceType.name(),
+                skills,
+                pokemonType.name(),
+                regulationMark,
+                number
         );
     }
 }

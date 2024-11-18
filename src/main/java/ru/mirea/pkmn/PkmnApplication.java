@@ -6,9 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import ru.mirea.pkmn.polupanpolina.CardExport;
 import ru.mirea.pkmn.polupanpolina.CardImport;
-import ru.mirea.pkmn.polupanpolina.web.http.PkmnHttpClient;
-import ru.mirea.pkmn.polupanpolina.web.jdbc.DatabaseService;
-import ru.mirea.pkmn.utils.ResourceFileLoader;
+import ru.mirea.pkmn.polupanpolina.network.PkmnHttpClient;
+import ru.mirea.pkmn.polupanpolina.database.DatabaseService;
+import ru.mirea.pkmn.polupanpolina.utils.ResourceFileLoader;
 
 import java.util.List;
 import java.util.UUID;
@@ -29,7 +29,7 @@ public class PkmnApplication {
 
         DatabaseService dbService = context.getBean(DatabaseService.class);
 
-   //     testNetwork(pkmnHttpClient);
+        testNetwork(pkmnHttpClient);
 
         testDatabase(dbService);
     }
@@ -96,7 +96,7 @@ public class PkmnApplication {
 
         logger.log(Level.INFO, student.toString());
 
-         UUID uuid = UUID.fromString("05be7b93-17fa-3459-a0f4-c62f7628796d");
+        UUID uuid = UUID.fromString("05be7b93-17fa-3459-a0f4-c62f7628796d");
         ru.mirea.pkmn.polupanpolina.entity.Card dCard = service.getCardFromDatabase(uuid);
 
         logger.log(Level.INFO, dCard.toString());

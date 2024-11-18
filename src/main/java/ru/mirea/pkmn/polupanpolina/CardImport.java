@@ -168,6 +168,8 @@ public final class CardImport {
 
         List<String> params = List.of(string.split("/"));
 
+        if (params.size() < 4) return null;
+
         String firstName = null;
         String surName = null;
         String familyName = null;

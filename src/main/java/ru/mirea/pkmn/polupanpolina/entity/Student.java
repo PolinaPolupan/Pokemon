@@ -13,14 +13,19 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Student {
+
     @Id
     private UUID id;
 
-    @Column(name = "firstName")
+    @Column(name = "firstName", nullable = false)
     private String firstName;
-    @Column(name = "patronicName")
-    private String patronicName;
-    @Column(name = "familyName")
+
+    @Column(name = "patronicName", nullable = false)
+    private String surName;
+
+    @Column(name = "familyName", nullable = false)
     private String familyName;
+
+    @Column(nullable = false)
     private String group;
 }

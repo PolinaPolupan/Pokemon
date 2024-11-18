@@ -1,4 +1,4 @@
-package ru.mirea.pkmn.polupanpolina.web.jdbc;
+package ru.mirea.pkmn.polupanpolina.database;
 
 import ru.mirea.pkmn.polupanpolina.entity.Card;
 import ru.mirea.pkmn.polupanpolina.entity.Student;

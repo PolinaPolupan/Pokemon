@@ -1,4 +1,4 @@
-package ru.mirea.pkmn.polupanpolina.web.http;
+package ru.mirea.pkmn.polupanpolina.network;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import retrofit2.Call;

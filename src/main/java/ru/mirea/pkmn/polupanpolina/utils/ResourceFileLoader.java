@@ -1,4 +1,4 @@
-package ru.mirea.pkmn.utils;
+package ru.mirea.pkmn.polupanpolina.utils;
 
 import com.google.common.io.Resources;
 import org.springframework.beans.factory.annotation.Autowired;

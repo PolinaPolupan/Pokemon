@@ -1,6 +1,7 @@
-package ru.mirea.pkmn.polupanpolina.web.http;
+package ru.mirea.pkmn.polupanpolina.network;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import retrofit2.Response;
 
@@ -19,12 +20,13 @@ public class PkmnHttpClient {
     }
 
     public void getPokemonCard(String name, String number, PokemonCardCallback callback) {
+
         String requestQuery = "name:\"" + name + "\" number:" + number;
 
         Call<JsonNode> call = tcgAPI.getPokemon(requestQuery);
         call.enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call call, Response response) {
+            public void onResponse(@NotNull Call call, @NotNull Response response) {
                 if (response.isSuccessful()) {
                     callback.onSuccess((JsonNode) response.body());
                 } else {
@@ -33,7 +35,7 @@ public class PkmnHttpClient {
             }
 
             @Override
-            public void onFailure(Call call, Throwable t) {
+            public void onFailure(@NotNull Call call, @NotNull Throwable t) {
                 callback.onError(t);
             }
         });
