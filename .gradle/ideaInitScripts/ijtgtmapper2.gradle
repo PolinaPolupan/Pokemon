@@ -1,5 +1,0 @@
-ext.pathMapper = [:]
-ext.pathMapper.put('<<target java executable path>>', '<<target java executable path>>')
-ext.pathMapper.put('//wsl\$/UbuntuPolina/root/Projects/Pkmn', '/root/Projects/Pkmn')
-ext.pathMapper.put("<<target java executable path>>", '/usr/lib/jvm/java-11-openjdk-amd64/bin/java')
-ext.mapPath = { path -> pathMapper.get(path) ?: path }
