@@ -89,15 +89,15 @@ public class PkmnApplication {
 
         Card card = CardImport.parseCard(loader.getResourcePath("my_card.txt"));
 
-        service.saveCardToDatabase(card.toEntity());
+        service.saveCard(card.toEntity());
 
 
-        ru.mirea.pkmn.polupanpolina.entity.Student student = service.getStudentFromDatabase("Polina Polupan Mikhailovna");
+        ru.mirea.pkmn.polupanpolina.entity.Student student = service.getStudent("Polina Polupan Mikhailovna");
 
         logger.log(Level.INFO, student.toString());
 
         UUID uuid = UUID.fromString("05be7b93-17fa-3459-a0f4-c62f7628796d");
-        ru.mirea.pkmn.polupanpolina.entity.Card dCard = service.getCardFromDatabase(uuid);
+        ru.mirea.pkmn.polupanpolina.entity.Card dCard = service.getCard(uuid);
 
         logger.log(Level.INFO, dCard.toString());
     }

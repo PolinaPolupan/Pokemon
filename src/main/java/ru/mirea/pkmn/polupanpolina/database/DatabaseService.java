@@ -7,15 +7,15 @@ import java.util.UUID;
 
 public interface DatabaseService {
 
-    Card getCardFromDatabase(String cardName);
+    Card getCard(String name);
 
-    Card getCardFromDatabase(UUID uuid);
+    Card getCard(UUID uuid);
 
-    Student getStudentFromDatabase(String studentFullName);
+    Student getStudent(String fullName);
 
-    Student getStudentFromDatabase(UUID uuid);
+    Student getStudent(UUID uuid);
 
-    void saveCardToDatabase(Card card);
+    void saveCard(Card card);
 
-    void createPokemonOwner(Student owner);
+    void saveStudent(Student student);
 }

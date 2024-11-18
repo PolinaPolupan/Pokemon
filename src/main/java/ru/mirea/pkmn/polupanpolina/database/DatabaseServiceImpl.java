@@ -22,27 +22,27 @@ public class DatabaseServiceImpl implements DatabaseService {
     }
 
     @Override
-    public Card getCardFromDatabase(String cardName) {
+    public Card getCard(String name) {
         try {
             return em.createQuery("SELECT c FROM Card c WHERE c.name = :name", Card.class)
-                    .setParameter("name", cardName)
+                    .setParameter("name", name)
                     .getSingleResult();
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Failed to find card by name: " + cardName, e);
+            logger.log(Level.SEVERE, "Failed to find card by name: " + name, e);
         }
         return null;
     }
 
     @Override
-    public Card getCardFromDatabase(UUID uuid) {
+    public Card getCard(UUID uuid) {
         return em.find(Card.class, uuid);
     }
 
     @Override
-    public Student getStudentFromDatabase(String studentFullName) {
-        String[] parts = studentFullName.split(" ");
+    public Student getStudent(String fullName) {
+        String[] parts = fullName.split(" ");
         if (parts.length != 3) {
-            logger.log(Level.WARNING, "Invalid student name format: " + studentFullName);
+            logger.log(Level.WARNING, "Invalid student name format: " + fullName);
             return null;
         }
         try {
@@ -54,18 +54,18 @@ public class DatabaseServiceImpl implements DatabaseService {
                     .setParameter("surName", parts[2])
                     .getSingleResult();
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Failed to find student: " + studentFullName, e);
+            logger.log(Level.SEVERE, "Failed to find student: " + fullName, e);
         }
         return null;
     }
 
     @Override
-    public Student getStudentFromDatabase(UUID uuid) {
+    public Student getStudent(UUID uuid) {
         return em.find(Student.class, uuid);
     }
 
     @Override
-    public void saveCardToDatabase(Card card) {
+    public void saveCard(Card card) {
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -79,13 +79,13 @@ public class DatabaseServiceImpl implements DatabaseService {
     }
 
     @Override
-    public void createPokemonOwner(Student owner) {
+    public void saveStudent(Student student) {
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            em.persist(owner);
+            em.persist(student);
             tx.commit();
-            logger.log(Level.INFO, "Student saved: " + owner.getFirstName());
+            logger.log(Level.INFO, "Student saved: " + student.getFirstName());
         } catch (Exception e) {
             tx.rollback();
             logger.log(Level.SEVERE, "Failed to save student: " + e.getMessage(), e);
