@@ -1,4 +1,4 @@
-package ru.mirea.pkmn.polupanpolina.database;
+package ru.mirea.pkmn.polupanpolina.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.logging.Logger;
 
 @Configuration
-public class DatabaseConfig {
+public class RepositoryConfig {
 
     @Bean
     public EntityManagerFactory entityManagerFactory() {
@@ -21,7 +21,7 @@ public class DatabaseConfig {
     }
 
     @Bean
-    public DatabaseService databaseService(EntityManager em, Logger logger) {
-        return new DatabaseServiceImpl(em, logger);
+    public PkmnRepository pkmnRepository(EntityManager em, Logger logger) {
+        return new PkmnRepositoryImpl(em, logger);
     }
 }

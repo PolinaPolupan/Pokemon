@@ -1,11 +1,11 @@
-package ru.mirea.pkmn.polupanpolina.database;
+package ru.mirea.pkmn.polupanpolina.repository;
 
 import ru.mirea.pkmn.polupanpolina.entity.CardEntity;
 import ru.mirea.pkmn.polupanpolina.entity.StudentEntity;
 
 import java.util.UUID;
 
-public interface DatabaseService {
+public interface PkmnRepository {
 
     CardEntity getCard(String name);
 

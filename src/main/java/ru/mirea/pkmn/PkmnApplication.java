@@ -9,7 +9,7 @@ import ru.mirea.pkmn.polupanpolina.entity.StudentEntity;
 import ru.mirea.pkmn.polupanpolina.io.CardExport;
 import ru.mirea.pkmn.polupanpolina.io.CardImport;
 import ru.mirea.pkmn.polupanpolina.network.PkmnHttpClient;
-import ru.mirea.pkmn.polupanpolina.database.DatabaseService;
+import ru.mirea.pkmn.polupanpolina.repository.PkmnRepository;
 import ru.mirea.pkmn.polupanpolina.utils.ResourceFileLoader;
 
 import java.util.List;
@@ -29,7 +29,7 @@ public class PkmnApplication {
 
         PkmnHttpClient pkmnHttpClient = context.getBean(PkmnHttpClient.class);
 
-        DatabaseService dbService = context.getBean(DatabaseService.class);
+        PkmnRepository dbService = context.getBean(PkmnRepository.class);
 
         testNetwork(pkmnHttpClient);
 
@@ -83,7 +83,7 @@ public class PkmnApplication {
         client.getPokemonCard("azumarill", "h4", callback);
     }
 
-    public static void testDatabase(DatabaseService service) {
+    public static void testDatabase(PkmnRepository service) {
 
         Logger logger = context.getBean(Logger.class); // Create logger
 

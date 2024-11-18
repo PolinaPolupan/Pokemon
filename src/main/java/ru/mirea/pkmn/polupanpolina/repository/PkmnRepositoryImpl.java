@@ -1,4 +1,4 @@
-package ru.mirea.pkmn.polupanpolina.database;
+package ru.mirea.pkmn.polupanpolina.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -8,14 +8,14 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class DatabaseServiceImpl implements DatabaseService {
+public class PkmnRepositoryImpl implements PkmnRepository {
 
     private final Logger logger;
 
     private final EntityManager em;
 
     @Autowired
-    DatabaseServiceImpl(EntityManager em, Logger logger) {
+    PkmnRepositoryImpl(EntityManager em, Logger logger) {
 
         this.logger = logger;
         this.em = em;
