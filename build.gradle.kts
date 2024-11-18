@@ -43,9 +43,9 @@ dependencies {
     implementation("jakarta.servlet:jakarta.servlet-api:5.0.0")
     implementation("org.hibernate.orm:hibernate-core:6.3.0.Final")
     implementation("com.vladmihalcea:hibernate-types-60:2.21.1")
-
     implementation("org.slf4j:slf4j-api:2.0.9")
     implementation("org.slf4j:slf4j-simple:2.0.9")
+    implementation("com.google.code.gson:gson:2.7")
 
     compileOnly("org.jetbrains:annotations:24.1.0")
 
