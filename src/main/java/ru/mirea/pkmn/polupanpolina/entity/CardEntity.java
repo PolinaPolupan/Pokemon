@@ -36,7 +36,7 @@ public class CardEntity {
     @Column(name = "game_set", nullable = false)
     private String gameSet;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "pokemon_owner")
     private StudentEntity pokemonOwner;
 

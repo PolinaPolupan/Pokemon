@@ -1,9 +1,12 @@
 package ru.mirea.pkmn;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import ru.mirea.pkmn.polupanpolina.controller.CardServlet;
 import ru.mirea.pkmn.polupanpolina.entity.CardEntity;
 import ru.mirea.pkmn.polupanpolina.entity.StudentEntity;
 import ru.mirea.pkmn.polupanpolina.io.CardExport;
@@ -34,6 +37,9 @@ public class PkmnApplication {
         testNetwork(pkmnHttpClient);
 
         testDatabase(dbService);
+
+        CardServlet servlet = new CardServlet();
+      //  PkmnRepository rep = servlet.getPkmnRepository();
     }
 
     public static void testNetwork(PkmnHttpClient client) {
