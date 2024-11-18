@@ -11,7 +11,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertTrue;
-import static ru.mirea.pkmn.polupanpolina.CardExport.serializeCard;
+import static ru.mirea.pkmn.polupanpolina.io.CardExport.serializeCard;
 
 public class CardSerializerTest {
 

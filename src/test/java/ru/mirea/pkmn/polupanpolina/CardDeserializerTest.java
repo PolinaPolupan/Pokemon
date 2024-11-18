@@ -2,7 +2,6 @@ package ru.mirea.pkmn.polupanpolina;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import ru.mirea.pkmn.Card;
 import ru.mirea.pkmn.EnergyType;
 import ru.mirea.pkmn.PokemonStage;
@@ -12,7 +11,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static ru.mirea.pkmn.polupanpolina.CardImport.deserializeCard;
+import static ru.mirea.pkmn.polupanpolina.io.CardImport.deserializeCard;
 
 public class CardDeserializerTest {
 

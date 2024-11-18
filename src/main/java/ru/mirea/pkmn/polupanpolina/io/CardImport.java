@@ -1,4 +1,4 @@
-package ru.mirea.pkmn.polupanpolina;
+package ru.mirea.pkmn.polupanpolina.io;
 
 import java.io.*;
 import java.net.URL;

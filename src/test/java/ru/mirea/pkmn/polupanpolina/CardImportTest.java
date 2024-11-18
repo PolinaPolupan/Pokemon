@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import com.google.common.io.Resources;
 import ru.mirea.pkmn.*;
-import ru.mirea.pkmn.polupanpolina.CardImport;
+import ru.mirea.pkmn.polupanpolina.io.CardImport;
 
 import static org.junit.Assert.assertEquals;
 
