@@ -48,9 +48,9 @@ dependencies {
     implementation("com.google.code.gson:gson:2.7")
 
     compileOnly("org.jetbrains:annotations:24.1.0")
-
     compileOnly ("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
+
     testCompileOnly("org.projectlombok:lombok")
     testAnnotationProcessor("org.projectlombok:lombok")
 

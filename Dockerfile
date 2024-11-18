@@ -1,14 +1,14 @@
-# Use an official OpenJDK runtime as the base image
-FROM openjdk:17-jdk-slim
+# Use official Tomcat image
+FROM tomcat:10.1.14-jdk17
 
-# Set the working directory
-WORKDIR /app
+# Remove the default Tomcat ROOT application
+RUN rm -rf /usr/local/tomcat/webapps/ROOT
 
-# Copy the built .war file to the container
-COPY build/libs/pkmn.war /app/pkmn.war
+# Copy the WAR file from the Gradle build directory
+COPY build/libs/pkmn.war /usr/local/tomcat/webapps/ROOT.war
 
-# Expose the Tomcat server port
+# Expose port 8080 for web traffic
 EXPOSE 8080
 
-# Command to run the application
-ENTRYPOINT ["java", "-jar", "/app/myapp.war"]
+CMD ["catalina.sh", "run"]
+
