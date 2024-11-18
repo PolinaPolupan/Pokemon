@@ -26,12 +26,10 @@ public class Student implements Serializable {
     private String group;
 
     public ru.mirea.pkmn.polupanpolina.entity.Student toEntity() {
-        // Generate a UUID using a combination of unique fields
-        UUID studentUuid = UUID.nameUUIDFromBytes((toString()).getBytes());
 
         // Map fields to the entity
         return new ru.mirea.pkmn.polupanpolina.entity.Student(
-                studentUuid,    // id
+                null,    // id
                 this.firstName, // firstName
                 this.surName,   // patronicName (mapped from surName)
                 this.familyName,// familyName

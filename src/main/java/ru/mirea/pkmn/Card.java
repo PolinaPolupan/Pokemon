@@ -45,12 +45,10 @@ public class Card implements Serializable {
 
 
     public ru.mirea.pkmn.polupanpolina.entity.Card toEntity() {
-        // Generate a UUID based on some unique field combination
-        UUID cardUuid = UUID.nameUUIDFromBytes((name + number).getBytes());
 
         // Create and return the entity object
         return new ru.mirea.pkmn.polupanpolina.entity.Card(
-                cardUuid,
+                null,
                 name,
                 (short) hp,
                 evolvesFrom != null ? evolvesFrom.toEntity() : null,

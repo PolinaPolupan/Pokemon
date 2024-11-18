@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.UuidGenerator;
 import ru.mirea.pkmn.AttackSkill;
 
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.UUID;
 public class Card {
 
     @Id
+    @UuidGenerator
     private UUID id;
 
     @Column(nullable = false)
