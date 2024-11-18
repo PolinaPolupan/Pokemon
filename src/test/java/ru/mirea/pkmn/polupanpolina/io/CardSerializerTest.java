@@ -1,4 +1,4 @@
-package ru.mirea.pkmn.polupanpolina;
+package ru.mirea.pkmn.polupanpolina.io;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

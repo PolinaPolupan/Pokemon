@@ -51,8 +51,7 @@ public class CardServlet extends HttpServlet {
 
         ObjectMapper objectMapper = new ObjectMapper();
 
-        if (cards != null) {
-            Gson gson = new Gson();
+        if (cards != null && cards.size() > 0) {
             out.write(objectMapper.writeValueAsString(cards));
         } else {
             resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
