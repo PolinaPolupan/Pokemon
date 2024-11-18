@@ -1,21 +1,21 @@
 package ru.mirea.pkmn.polupanpolina.database;
 
-import ru.mirea.pkmn.polupanpolina.entity.Card;
-import ru.mirea.pkmn.polupanpolina.entity.Student;
+import ru.mirea.pkmn.polupanpolina.entity.CardEntity;
+import ru.mirea.pkmn.polupanpolina.entity.StudentEntity;
 
 import java.util.UUID;
 
 public interface DatabaseService {
 
-    Card getCard(String name);
+    CardEntity getCard(String name);
 
-    Card getCard(UUID uuid);
+    CardEntity getCard(UUID uuid);
 
-    Student getStudent(String fullName);
+    StudentEntity getStudent(String fullName);
 
-    Student getStudent(UUID uuid);
+    StudentEntity getStudent(UUID uuid);
 
-    void saveCard(Card card);
+    void saveCard(CardEntity card);
 
-    void saveStudent(Student student);
+    void saveStudent(StudentEntity student);
 }

@@ -17,7 +17,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Card {
+public class CardEntity {
 
     @Id
     @UuidGenerator
@@ -31,14 +31,14 @@ public class Card {
 
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "evolves_from")
-    private Card evolvesFrom;
+    private CardEntity evolvesFrom;
 
     @Column(name = "game_set", nullable = false)
     private String gameSet;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "pokemon_owner")
-    private Student pokemonOwner;
+    private StudentEntity pokemonOwner;
 
     @Column(nullable = false)
     private String stage;

@@ -22,9 +22,9 @@ public class DatabaseServiceImpl implements DatabaseService {
     }
 
     @Override
-    public Card getCard(String name) {
+    public CardEntity getCard(String name) {
         try {
-            return em.createQuery("SELECT c FROM Card c WHERE c.name = :name", Card.class)
+            return em.createQuery("SELECT c FROM CardEntity c WHERE c.name = :name", CardEntity.class)
                     .setParameter("name", name)
                     .getSingleResult();
         } catch (Exception e) {
@@ -34,12 +34,12 @@ public class DatabaseServiceImpl implements DatabaseService {
     }
 
     @Override
-    public Card getCard(UUID uuid) {
-        return em.find(Card.class, uuid);
+    public CardEntity getCard(UUID uuid) {
+        return em.find(CardEntity.class, uuid);
     }
 
     @Override
-    public Student getStudent(String fullName) {
+    public StudentEntity getStudent(String fullName) {
         String[] parts = fullName.split(" ");
         if (parts.length != 3) {
             logger.log(Level.WARNING, "Invalid student name format: " + fullName);
@@ -47,8 +47,8 @@ public class DatabaseServiceImpl implements DatabaseService {
         }
         try {
             return em.createQuery(
-                            "SELECT s FROM Student s WHERE s.firstName = :firstName AND s.familyName = :familyName AND s.surName = :surName",
-                            Student.class)
+                            "SELECT s FROM StudentEntity s WHERE s.firstName = :firstName AND s.familyName = :familyName AND s.surName = :surName",
+                            StudentEntity.class)
                     .setParameter("firstName", parts[0])
                     .setParameter("familyName", parts[1])
                     .setParameter("surName", parts[2])
@@ -60,12 +60,12 @@ public class DatabaseServiceImpl implements DatabaseService {
     }
 
     @Override
-    public Student getStudent(UUID uuid) {
-        return em.find(Student.class, uuid);
+    public StudentEntity getStudent(UUID uuid) {
+        return em.find(StudentEntity.class, uuid);
     }
 
     @Override
-    public void saveCard(Card card) {
+    public void saveCard(CardEntity card) {
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -79,7 +79,7 @@ public class DatabaseServiceImpl implements DatabaseService {
     }
 
     @Override
-    public void saveStudent(Student student) {
+    public void saveStudent(StudentEntity student) {
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();

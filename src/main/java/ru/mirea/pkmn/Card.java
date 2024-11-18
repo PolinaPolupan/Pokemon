@@ -3,10 +3,10 @@ package ru.mirea.pkmn;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.mirea.pkmn.polupanpolina.entity.CardEntity;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Class indicates the given pokemon card.
@@ -44,10 +44,10 @@ public class Card implements Serializable {
     private Student pokemonOwner;
 
 
-    public ru.mirea.pkmn.polupanpolina.entity.Card toEntity() {
+    public CardEntity toEntity() {
 
         // Create and return the entity object
-        return new ru.mirea.pkmn.polupanpolina.entity.Card(
+        return new CardEntity(
                 null,
                 name,
                 (short) hp,

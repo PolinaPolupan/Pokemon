@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import ru.mirea.pkmn.polupanpolina.entity.CardEntity;
+import ru.mirea.pkmn.polupanpolina.entity.StudentEntity;
 import ru.mirea.pkmn.polupanpolina.io.CardExport;
 import ru.mirea.pkmn.polupanpolina.io.CardImport;
 import ru.mirea.pkmn.polupanpolina.network.PkmnHttpClient;
@@ -92,13 +94,13 @@ public class PkmnApplication {
         service.saveCard(card.toEntity());
 
 
-        ru.mirea.pkmn.polupanpolina.entity.Student student = service.getStudent("Polina Polupan Mikhailovna");
+        StudentEntity student = service.getStudent("Polina Polupan Mikhailovna");
 
         logger.log(Level.INFO, student.toString());
 
         UUID uuid = UUID.fromString("05be7b93-17fa-3459-a0f4-c62f7628796d");
-        ru.mirea.pkmn.polupanpolina.entity.Card dCard = service.getCard(uuid);
+        CardEntity dCardEntity = service.getCard(uuid);
 
-        logger.log(Level.INFO, dCard.toString());
+        logger.log(Level.INFO, dCardEntity.toString());
     }
 }
