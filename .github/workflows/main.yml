@@ -27,6 +27,16 @@ jobs:
         run: ./gradlew build
 
       - 
+        name: List build output
+        run: ls -la build/libs
+      - 
+        name: Debug build context
+        run: ls -la
+      - 
+        name: Debug build/libs directory
+        run: ls -la build/libs
+
+      - 
         name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -40,4 +50,6 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
+          context: .
+          file: Dockerfile
           tags: ${{ vars.DOCKERHUB_USERNAME }}/pkmn:latest
