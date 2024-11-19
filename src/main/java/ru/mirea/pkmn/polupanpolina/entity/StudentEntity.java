@@ -16,6 +16,7 @@ import java.util.UUID;
 public class StudentEntity {
 
     @Id
+    @GeneratedValue
     @UuidGenerator
     private UUID id;
 

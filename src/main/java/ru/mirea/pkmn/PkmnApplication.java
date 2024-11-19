@@ -89,10 +89,9 @@ public class PkmnApplication {
 
         ResourceFileLoader loader = context.getBean(ResourceFileLoader.class);
 
-        Card card = CardImport.parseCard(loader.getResourcePath("my_card.txt"));
+        Card card = CardImport.parseCard(loader.getResourcePath("my_card_test.txt"));
 
         service.saveCard(card.toEntity());
-
 
         StudentEntity student = service.getStudent("Polina Polupan Mikhailovna");
 

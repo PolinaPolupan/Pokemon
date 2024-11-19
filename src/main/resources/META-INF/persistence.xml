@@ -8,13 +8,14 @@
         <class>ru.mirea.pkmn.polupanpolina.entity.StudentEntity</class>
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://services.tms-studio.ru:8095/pkmn_db"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://services.tms-studio.ru:8095/pkmn_db_test"/>
             <property name="jakarta.persistence.jdbc.user" value="pkmn_user"/>
             <property name="jakarta.persistence.jdbc.password" value="pkmn_password"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.globally_quoted_identifiers" value="true"/>
+            <property name="hibernate.type.descriptor.sql.BasicBinder.log_level" value="TRACE"/>
         </properties>
     </persistence-unit>
 </persistence>

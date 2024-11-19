@@ -70,12 +70,22 @@ public class PkmnRepositoryImpl implements PkmnRepository {
     public void saveCard(CardEntity card) {
         EntityTransaction tx = em.getTransaction();
         try {
-            tx.begin();
-            em.persist(card);
-            tx.commit();
-            logger.log(Level.INFO, "Card saved: " + card.getName());
+            Long count = (Long) em.createNativeQuery("SELECT COUNT(*) FROM card WHERE id = ?")
+                    .setParameter(1, card.getId())
+                    .getSingleResult();
+
+            if (count == 0) {
+                tx.begin();
+                em.persist(card);
+                tx.commit();
+                logger.log(Level.INFO, "Card saved: " + card);
+
+            } else {
+                logger.log(Level.INFO, "Card is already in the database: " + card.getName());
+            }
+
         } catch (Exception e) {
-            tx.rollback();
+           // tx.rollback();
             logger.log(Level.SEVERE, "Failed to save card: " + e.getMessage(), e);
         }
     }

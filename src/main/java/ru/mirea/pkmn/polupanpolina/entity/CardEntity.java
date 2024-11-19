@@ -20,6 +20,7 @@ import java.util.UUID;
 public class CardEntity {
 
     @Id
+    @GeneratedValue
     @UuidGenerator
     private UUID id;
 
