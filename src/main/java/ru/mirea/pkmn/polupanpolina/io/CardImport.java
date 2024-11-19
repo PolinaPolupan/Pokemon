@@ -95,8 +95,8 @@ public final class CardImport {
 
                 Card card =  new Card(
                         pokemonStage,
-                        name,
                         number,
+                        name,
                         hp,
                         pokemonType,
                         evolvesFrom,
