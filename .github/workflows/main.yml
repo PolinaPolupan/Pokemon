@@ -53,4 +53,3 @@ jobs:
           context: .
           file: Dockerfile
           tags: ${{ vars.DOCKERHUB_USERNAME }}/pkmn:latest
-          tags: ${{ vars.DOCKERHUB_USERNAME }}/pkmn:latest
