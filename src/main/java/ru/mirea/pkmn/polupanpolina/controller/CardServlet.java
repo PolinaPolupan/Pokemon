@@ -1,7 +1,6 @@
 package ru.mirea.pkmn.polupanpolina.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import jakarta.persistence.EntityManager;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -12,11 +11,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import ru.mirea.pkmn.polupanpolina.repository.PkmnRepository;
 import ru.mirea.pkmn.polupanpolina.entity.CardEntity;
 import ru.mirea.pkmn.polupanpolina.repository.PkmnRepositoryImpl;
-
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import java.util.logging.Logger;
 
 @WebServlet(urlPatterns = "/cards/*", loadOnStartup = 1)
@@ -63,11 +59,12 @@ public class CardServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         ObjectMapper objectMapper = new ObjectMapper();
+        PrintWriter out = resp.getWriter();
 
         CardEntity card = objectMapper.readValue(req.getInputStream(), CardEntity.class);
         pkmnRepository.saveCard(card);
-        objectMapper.writeValue(resp.getWriter(),card);
 
+        out.write(objectMapper.writeValueAsString(card));
         resp.setStatus(HttpServletResponse.SC_CREATED);
     }
 }
