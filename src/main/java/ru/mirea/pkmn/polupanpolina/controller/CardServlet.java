@@ -61,6 +61,8 @@ public class CardServlet extends HttpServlet {
         ObjectMapper objectMapper = new ObjectMapper();
         PrintWriter out = resp.getWriter();
 
+        resp.setContentType("application/json");
+
         CardEntity card = objectMapper.readValue(req.getInputStream(), CardEntity.class);
         pkmnRepository.saveCard(card);
 
