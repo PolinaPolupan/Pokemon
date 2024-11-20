@@ -66,7 +66,13 @@ public class CardServlet extends HttpServlet {
         CardEntity card = objectMapper.readValue(req.getInputStream(), CardEntity.class);
         pkmnRepository.saveCard(card);
 
-        out.write(objectMapper.writeValueAsString(card));
-        resp.setStatus(HttpServletResponse.SC_CREATED);
+        CardEntity savedCard = pkmnRepository.getCard(card.getName());
+
+        if (savedCard != null) {
+            out.write(objectMapper.writeValueAsString(card));
+            resp.setStatus(HttpServletResponse.SC_CREATED);
+        } else {
+            resp.setStatus(500);
+        }
     }
 }
