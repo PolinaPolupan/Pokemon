@@ -70,8 +70,8 @@ public class PkmnRepositoryImpl implements PkmnRepository {
     public void saveCard(CardEntity card) {
         EntityTransaction tx = em.getTransaction();
         try {
-            Long count = (Long) em.createNativeQuery("SELECT COUNT(*) FROM card WHERE id = ?")
-                    .setParameter(1, card.getId())
+            Long count = (Long) em.createNativeQuery("SELECT COUNT(*) FROM card WHERE name = ?")
+                    .setParameter(1, card.getName())
                     .getSingleResult();
 
             if (count == 0) {
@@ -85,7 +85,7 @@ public class PkmnRepositoryImpl implements PkmnRepository {
             }
 
         } catch (Exception e) {
-           // tx.rollback();
+            tx.rollback();
             logger.log(Level.SEVERE, "Failed to save card: " + e.getMessage(), e);
         }
     }
