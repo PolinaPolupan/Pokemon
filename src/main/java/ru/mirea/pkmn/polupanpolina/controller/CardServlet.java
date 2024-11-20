@@ -62,11 +62,12 @@ public class CardServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        BufferedReader reader = req.getReader();
-        Gson gson = new Gson();
-        CardEntity card = gson.fromJson(reader, CardEntity.class);
+        ObjectMapper objectMapper = new ObjectMapper();
 
+        CardEntity card = objectMapper.readValue(req.getInputStream(), CardEntity.class);
         pkmnRepository.saveCard(card);
+        objectMapper.writeValue(resp.getWriter(),card);
+
         resp.setStatus(HttpServletResponse.SC_CREATED);
     }
 }
