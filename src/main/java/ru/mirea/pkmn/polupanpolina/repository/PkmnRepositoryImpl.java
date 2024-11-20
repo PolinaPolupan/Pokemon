@@ -5,7 +5,6 @@ import jakarta.persistence.EntityTransaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.mirea.pkmn.polupanpolina.entity.*;
 
-import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,11 +23,12 @@ public class PkmnRepositoryImpl implements PkmnRepository {
     }
 
     @Override
-    public List<CardEntity> getCard(String name) {
+    public CardEntity getCard(String name) {
         try {
             return em.createQuery("SELECT c FROM CardEntity c WHERE c.name = :name", CardEntity.class)
                     .setParameter("name", name)
-                    .getResultList();
+                    .getResultList()
+                    .get(0);
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Failed to find card by name: " + name, e);
         }

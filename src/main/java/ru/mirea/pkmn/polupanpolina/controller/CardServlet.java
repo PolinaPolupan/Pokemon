@@ -44,15 +44,15 @@ public class CardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String cardName = req.getParameter("name");
-        List<CardEntity> cards = pkmnRepository.getCard(cardName);
+        CardEntity card = pkmnRepository.getCard(cardName);
 
         resp.setContentType("application/json");
         PrintWriter out = resp.getWriter();
 
         ObjectMapper objectMapper = new ObjectMapper();
 
-        if (cards != null && cards.size() > 0) {
-            out.write(objectMapper.writeValueAsString(cards));
+        if (card != null) {
+            out.write(objectMapper.writeValueAsString(card));
         } else {
             resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
             out.write("{\"error\": \"Card not found\"}");
