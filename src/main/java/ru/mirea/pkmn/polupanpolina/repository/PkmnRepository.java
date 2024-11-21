@@ -11,6 +11,8 @@ public interface PkmnRepository {
 
     CardEntity getCard(UUID uuid);
 
+    CardEntity getCard(StudentEntity student);
+
     StudentEntity getStudent(String fullName);
 
     StudentEntity getStudent(UUID uuid);
@@ -18,4 +20,6 @@ public interface PkmnRepository {
     void saveCard(CardEntity card);
 
     void saveStudent(StudentEntity student);
+
+    boolean cardExists(String cardName);
 }
