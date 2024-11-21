@@ -76,7 +76,7 @@ public class PkmnRepositoryImpl implements PkmnRepository {
 
             if (count == 0) {
                 tx.begin();
-                em.persist(card);
+                em.merge(card);
                 tx.commit();
                 logger.log(Level.INFO, "Card saved: " + card);
 
@@ -95,7 +95,7 @@ public class PkmnRepositoryImpl implements PkmnRepository {
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            em.persist(student);
+            em.merge(student);
             tx.commit();
             logger.log(Level.INFO, "Student saved: " + student.getFirstName());
         } catch (Exception e) {
