@@ -4,9 +4,8 @@ University assignment
 ## Installation
 
 Directly from the repository
-
 ```
-  docker build -t pkmn .
+docker build -t pkmn .
 ```
 
 or
