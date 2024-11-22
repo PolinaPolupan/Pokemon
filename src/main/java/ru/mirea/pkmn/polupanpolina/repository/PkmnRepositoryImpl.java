@@ -86,17 +86,19 @@ public class PkmnRepositoryImpl implements PkmnRepository {
 
         try {
 
-            tx.begin();
-            em.merge(card);
-            tx.commit();
-            logger.log(Level.INFO, "Card saved: " + card);
+            if (!cardExists(card.getName())) {
+                tx.begin();
+                em.merge(card);
+                tx.commit();
+                logger.log(Level.INFO, "Card saved: " + card);
+            }
 
         } catch (Exception e) {
             tx.rollback();
             logger.log(Level.SEVERE, "Failed to save card: " + e.getMessage(), e);
         }
 
-        if (card.getEvolvesFrom() != null) saveCard(card.getEvolvesFrom());
+       if (card.getEvolvesFrom() != null) saveCard(card.getEvolvesFrom());
     }
 
     @Override
