@@ -1,0 +1,20 @@
+services:
+  java:
+    build:
+      context: .
+      dockerfile: Dockerfile
+  postgres:
+    container_name: 'db'
+    image: 'postgres:17.2-alpine'
+    environment:
+      POSTGRES_USER: pkmn_user
+      POSTGRES_PASSWORD: pkmn_password
+      POSTGRES_DB: pkmn_db
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

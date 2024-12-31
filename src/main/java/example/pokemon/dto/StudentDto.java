@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class StudentDto {
     private String firstName;
+    private String lastName;
     private String surName;
-    private String familyName;
     private String group;
 }
