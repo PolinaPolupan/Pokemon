@@ -1,7 +1,8 @@
 package example.pokemon.controller;
 
-import example.pokemon.model.Student;
-import example.pokemon.repository.StudentRepository;
+import example.pokemon.dto.GetStudentRequest;
+import example.pokemon.dto.StudentDto;
+import example.pokemon.service.StudentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,21 +13,33 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
-@RequestMapping("/students")
+@RequestMapping("api/v1/students")
 @AllArgsConstructor
 public class StudentController {
 
-    private final StudentRepository repository;
+    private final StudentService service;
+
+    @GetMapping("/all")
+    public ResponseEntity<List<StudentDto>> getAllStudents() {
+        return ResponseEntity.status(OK)
+                .body(service.getAll());
+    }
+
+    @GetMapping("/{group}")
+    public ResponseEntity<List<StudentDto>> getByStudentGroup(@PathVariable String group) {
+        return ResponseEntity.status(OK)
+                .body(service.getByStudentGroup(group));
+    }
 
     @GetMapping
-    public ResponseEntity<List<Student>> getAllStudents() {
+    public ResponseEntity<StudentDto> getByFirstNameLastNameAndSurName(@RequestBody GetStudentRequest request) {
         return ResponseEntity.status(OK)
-                .body(repository.findAll());
+                .body(service.getByFirstNameLastNameAndSurName(request));
     }
 
     @PostMapping
-    public ResponseEntity<Void> createStudent(@RequestBody Student student) {
-        repository.save(student);
+    public ResponseEntity<Void> createStudent(@RequestBody StudentDto student) {
+        service.save(student);
         return new ResponseEntity<>(CREATED);
     }
 }
