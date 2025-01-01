@@ -12,6 +12,6 @@ import java.util.UUID;
 public interface StudentRepository extends JpaRepository<Student, UUID> {
 
     Optional<Student> findByFirstNameAndLastName(String firstName, String lastName);
-    Optional<Student> findByFirstNameAndLastNameAndSurName(String firstName, String lastName, String surName);
+    List<Student> findByFirstNameAndLastNameAndSurName(String firstName, String lastName, String surName);
     List<Student> findByGroup(String group);
 }

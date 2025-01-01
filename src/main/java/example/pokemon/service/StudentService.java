@@ -51,14 +51,18 @@ public class StudentService {
 
     public StudentDto getByFirstNameLastNameAndSurName(GetStudentRequest request) {
 
-        Student student = repository.findByFirstNameAndLastNameAndSurName(
+        List<Student> students = repository.findByFirstNameAndLastNameAndSurName(
                 request.getFirstName(),
                 request.getLastName(),
                 request.getSurName()
-        ).orElseThrow(() -> {
-            throw new StudentNotFoundException("Student is not found");
-        });
+        );
 
-        return mapper.mapToDto(student);
+        if (students.isEmpty()) {
+            throw new StudentNotFoundException("Student not found");
+        } else if (students.size() > 1) {
+            throw new DuplicateStudentException("Multiple students found with the same name");
+        }
+
+        return mapper.mapToDto(students.get(0));
     }
 }
