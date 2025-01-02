@@ -14,9 +14,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CardDto {
-    private Long id;
     private PokemonStage pokemonStage;
-    private String number;
+    private String cardNumber;
     private String name;
     private int hp;
     private EnergyType pokemonType;
