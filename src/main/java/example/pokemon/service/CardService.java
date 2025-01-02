@@ -3,6 +3,7 @@ package example.pokemon.service;
 import example.pokemon.dto.CardDto;
 import example.pokemon.dto.StudentDto;
 import example.pokemon.exception.CardNotFoundException;
+import example.pokemon.exception.DuplicateCardException;
 import example.pokemon.exception.StudentNotFoundException;
 import example.pokemon.mapper.CardMapper;
 import example.pokemon.model.Card;
@@ -13,6 +14,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -25,6 +27,11 @@ public class CardService {
     private final CardMapper cardMapper;
 
     public void save(CardDto card) {
+        Optional<Card> existingCard = cardRepository.findByName(card.getName());
+        existingCard.ifPresent(c ->
+            { throw new DuplicateCardException("A card with the same name already exists."); }
+        );
+
         cardRepository.save(cardMapper.mapDtoToCard(card));
     }
 
