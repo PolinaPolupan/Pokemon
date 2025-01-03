@@ -1,12 +1,12 @@
-package example.pokemon.service;
+package example.auth.service;
 
-import example.pokemon.dto.LoginRequest;
-import example.pokemon.dto.RegisterRequest;
-import example.pokemon.dto.AuthenticationResponse;
-import example.pokemon.model.Authority;
-import example.pokemon.model.User;
-import example.pokemon.repository.UserRepository;
-import example.pokemon.security.JwtProvider;
+import example.auth.dto.AuthenticationResponse;
+import example.auth.dto.LoginRequest;
+import example.auth.dto.RegisterRequest;
+import example.auth.model.Authority;
+import example.auth.model.User;
+import example.auth.security.JwtProvider;
+import example.auth.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

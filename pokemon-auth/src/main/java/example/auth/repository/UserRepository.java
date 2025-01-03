@@ -1,6 +1,6 @@
-package example.pokemon.repository;
+package example.auth.repository;
 
-import example.pokemon.model.User;
+import example.auth.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

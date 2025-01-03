@@ -1,7 +1,7 @@
-package example.pokemon.service;
+package example.auth.service;
 
-import example.pokemon.model.User;
-import example.pokemon.repository.UserRepository;
+import example.auth.model.User;
+import example.auth.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

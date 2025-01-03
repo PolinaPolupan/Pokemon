@@ -1,4 +1,4 @@
-package example.pokemon.dto;
+package example.auth.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

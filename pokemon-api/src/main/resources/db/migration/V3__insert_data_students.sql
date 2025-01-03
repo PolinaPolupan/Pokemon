@@ -1,4 +1,4 @@
-INSERT INTO "public"."students" ("id", "first_name", "sur_name", "family_name", "group") VALUES
+INSERT INTO pokemon.students ("id", "first_name", "sur_name", "family_name", "group") VALUES
 ('0407e563-8145-464e-944f-b183888b7476', 'Valeria', 'Dmitrievna', 'Melnikova', 'БСБО-05-23'),
 ('0438350c-bfda-3361-93b9-72a388392dac', 'Polina', 'Mikhailovna', 'Polupan', 'БСБО-05-23'),
 ('10a3a157-5ce9-45ba-a556-451696137687', 'Evgeniy', 'Viktorovich', 'Pegov', 'БСБО-04-23'),

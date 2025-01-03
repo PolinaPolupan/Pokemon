@@ -1,4 +1,4 @@
-package example.pokemon.model;
+package example.auth.model;
 
 import jakarta.persistence.*;
 import lombok.Data;

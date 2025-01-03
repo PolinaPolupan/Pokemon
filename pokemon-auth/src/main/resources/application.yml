@@ -3,16 +3,56 @@ server:
 
 spring:
   application:
-    name: auth
+    name: Auth
+
+  security:
+    oauth2:
+      authorizationserver:
+        issuer: http://auth-server:9000
+        client:
+          pokemon-client:
+            registration:
+              client-id: pokemon-client
+              client-secret: "{noop}secret"
+              client-name: Pokemon Client
+              client-authentication-methods:
+                - client_secret_basic
+              authorization-grant-types:
+                - authorization_code
+                - refresh_token
+              redirect-uris:
+                - http://127.0.0.1:8080/login/oauth2/code/articles-client-oidc
+                - http://127.0.0.1:8080/authorized
+              scopes:
+                - openid
+                - articles.read
 
   datasource:
     url: ${SPRING_DATASOURCE_URL}
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    baseline-version: 0
+    locations: classpath:db/migration
+    schemas: auth
+
   jpa:
     hibernate:
       ddl-auto: update
+
     properties:
       hibernate:
+        default_schema: auth
         dialect: org.hibernate.dialect.PostgreSQLDialect
+
+jwt:
+  private.key: classpath:app.key
+  public.key: classpath:app.pub
+
+logging:
+  level:
+    org.springframework.security: DEBUG

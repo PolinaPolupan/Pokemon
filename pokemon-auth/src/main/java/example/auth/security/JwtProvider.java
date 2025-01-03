@@ -1,4 +1,4 @@
-package example.pokemon.security;
+package example.auth.security;
 
 
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ public class JwtProvider {
 
     private final JwtEncoder jwtEncoder;
 
-    private final Long jwtExpirationInSec = 360000L;
+    private final Long jwtExpirationInSec = 36000L;
 
     public String generateToken(Authentication authentication) {
         User principal = (User) authentication.getPrincipal();
