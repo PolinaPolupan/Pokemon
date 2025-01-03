@@ -22,3 +22,13 @@ spring:
 jwt:
   private.key: classpath:app.key
   public.key: classpath:app.pub
+  audiences: pokemon-client
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+        security.oauth2: TRACE
+        security.jwt: TRACE
+    root: INFO
