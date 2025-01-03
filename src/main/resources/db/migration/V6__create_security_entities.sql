@@ -1,35 +1,57 @@
---Users and Authorities
+-- Users and Authorities Tables
 
---createTable(users)
+-- Create Users Table
 CREATE TABLE users (
     username VARCHAR(50) NOT NULL,
     password VARCHAR(500) NOT NULL,
-    enabled BOOLEAN NOT NULL,
+    enabled BOOLEAN NOT NULL DEFAULT FALSE,
+    created_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT users_pkey PRIMARY KEY (username)
 );
 
---createTable(authorities)
+-- Create Authorities Table
 CREATE TABLE authorities (
-    authority VARCHAR(50) NOT NULL,
-    username VARCHAR(50) NOT NULL
+     id BIGSERIAL PRIMARY KEY,
+     authority VARCHAR(50) NOT NULL,
+     username VARCHAR(50) NOT NULL,
+     created_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+     CONSTRAINT fk_authorities_users FOREIGN KEY (username) REFERENCES users (username) ON DELETE CASCADE,
+     CONSTRAINT uk_username_authority UNIQUE (username, authority)
 );
 
---addForeignKeyConstraint(fk_authorities_users)
-ALTER TABLE authorities ADD CONSTRAINT fk_authorities_users FOREIGN KEY (username) REFERENCES users (username);
-
---createIndex(ix_auth_username)
+-- Create Index on Authorities
 CREATE INDEX ix_auth_username ON authorities(username, authority);
 
---insert(users#username#admin#password#{bcrypt}$2a$10$HGTok2MzVIq8hHdrdmCeN.2iCFhnpEZRhwwqzn6J8pPNg7ScrE6c.)
-INSERT INTO users (username, password, enabled) VALUES
-('admin', '{bcrypt}$2a$10$HGTok2MzVIq8hHdrdmCeN.2iCFhnpEZRhwwqzn6J8pPNg7ScrE6c.', TRUE);
+-- Insert Admin User
+INSERT INTO users (username, password, enabled, created_date)
+VALUES (
+    'admin',
+    '$2a$10$hXB2fs5cJFskrRmQTxN/Re37nHDY50TDvFz3A2Z2i0A0.bKVq9Luq',
+    TRUE,
+    '2025-01-03 11:08:32'
+);
 
---insert(authorities#authority#ROLE_ADMIN#username#admin)
-INSERT INTO authorities (authority, username) VALUES ('ROLE_ADMIN', 'admin');
+-- Insert Admin Authority
+INSERT INTO authorities (authority, username, created_date)
+VALUES (
+    'ROLE_ADMIN',
+    'admin',
+    '2025-01-03 11:08:32'
+);
 
---insert(users#username#pkmn_user_app#password#{bcrypt}$2a$10$Uk2GTKoNpjG5nfCi1lPyTuoFZRUdGY5RqhBmMi27dZ.Pss8V4tTxy)
-INSERT INTO users (username, password, enabled) VALUES
-('pkmn_user_app', '{bcrypt}$2a$10$Uk2GTKoNpjG5nfCi1lPyTuoFZRUdGY5RqhBmMi27dZ.Pss8V4tTxy', TRUE);
+-- Insert Regular User
+INSERT INTO users (username, password, enabled, created_date)
+VALUES (
+    'pkmn_user_app',
+    '$2a$10$hXB2fs5cJFskrRmQTxN/Re37nHDY50TDvFz3A2Z2i0A0.bKVq9Luq',
+    TRUE,
+    '2025-01-03 11:08:32'
+);
 
---insert(authorities#authority#ROLE_USER#username#pkmn_user_app)
-INSERT INTO authorities (authority, username) VALUES ('ROLE_USER', 'pkmn_user_app');
+-- Insert User Authority
+INSERT INTO authorities (authority, username, created_date)
+VALUES (
+    'ROLE_USER',
+    'pkmn_user_app',
+    '2025-01-03 11:08:32'
+);
