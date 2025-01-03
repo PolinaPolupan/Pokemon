@@ -6,6 +6,10 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+    properties:
+      hibernate:
+        default_schema: pokemon
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
   datasource:
     url: ${SPRING_DATASOURCE_URL}
@@ -18,10 +22,27 @@ spring:
     baseline-on-migrate: true
     baseline-version: 0
     locations: classpath:db/migration
+    schemas: pokemon
+
+  security:
+    oauth2:
+      client:
+        registration:
+          pokemon-client:
+            client-id: pokemon-client
+            client-secret: "{noop}secret"  # Update if you need stronger encryption
+            authorization-grant-type: authorization_code
+            redirect-uri: http://127.0.0.1:8080/login/oauth2/code/pokemon-client
+            scope:
+              - openid
+              - articles.read
+            client-authentication-method: client_secret_basic
+            authorization-uri: http://auth-server:9000/oauth2/authorize  # Set your auth server URL
+            token-uri: http://auth-server:9000/oauth2/token  # Token endpoint
 
 jwt:
-  private.key: classpath:app.key
   public.key: classpath:app.pub
+  issuer-uri: http://localhost:9000
   audiences: pokemon-client
 
 logging:

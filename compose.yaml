@@ -13,6 +13,7 @@ services:
       FLYWAY_ENABLED: true
     depends_on:
       - postgres
+
   pokemon-api:
     build:
       context: ./pokemon-api
@@ -27,6 +28,7 @@ services:
       FLYWAY_ENABLED: true
     depends_on:
       - postgres
+
   postgres:
     container_name: 'db'
     image: 'postgres:17.2-alpine'
