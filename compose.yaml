@@ -1,7 +1,21 @@
 services:
-  java:
+  auth-server:
     build:
-      context: .
+      context: ./pokemon-auth
+      dockerfile: Dockerfile
+    ports:
+      - '9000:9000'
+    environment:
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      SPRING_JPA_HIBERNATE_DDL_AUTO: none
+      FLYWAY_ENABLED: true
+    depends_on:
+      - postgres
+  pokemon-api:
+    build:
+      context: ./pokemon-api
       dockerfile: Dockerfile
     ports:
       - '8080:8080'
