@@ -1,9 +1,12 @@
 package example.pokemon.controller;
 
+import example.pokemon.dto.CardImageResponse;
 import example.pokemon.service.CardService;
 import example.pokemon.dto.CardDto;
 import example.pokemon.dto.StudentDto;
+import example.pokemon.service.PokemonTcgService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +21,7 @@ import java.util.UUID;
 public class CardController {
 
     private final CardService service;
+    private final PokemonTcgService pokemonTcgService;
 
     @GetMapping
     public ResponseEntity<List<CardDto>> getAllCards() {
@@ -47,5 +51,11 @@ public class CardController {
     public ResponseEntity<Void> createCard(@RequestBody CardDto card) {
         service.save(card);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping("/card-image")
+    public ResponseEntity<CardImageResponse> getCardImage(@RequestParam String name) {
+        CardImageResponse response = pokemonTcgService.fetchCardImageByName(name);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }
