@@ -32,6 +32,18 @@ public class CardService {
             { throw new DuplicateCardException("A card with the same name already exists."); }
         );
 
+        if (card.getPokemonOwner() == null) {
+            throw new StudentNotFoundException("Invalid null student");
+        }
+
+        studentRepository.findByFirstNameAndLastNameAndSurNameAndGroup(
+                card.getPokemonOwner().getFirstName(),
+                card.getPokemonOwner().getLastName(),
+                card.getPokemonOwner().getSurName(),
+                card.getPokemonOwner().getGroup()).ifPresent(c ->
+                { throw new DuplicateCardException("A card with the same owner already exists."); }
+        );
+
         cardRepository.save(cardMapper.mapDtoToCard(card));
     }
 
