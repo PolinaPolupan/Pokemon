@@ -16,6 +16,7 @@ spring-boot-starter-security = { group = "org.springframework.boot", name = "spr
 spring-boot-starter-oauth2-resource-server = { group = "org.springframework.boot", name = "spring-boot-starter-oauth2-resource-server" }
 spring-boot-starter-oauth2-authorization-server = { group = "org.springframework.boot", name = "spring-boot-starter-oauth2-authorization-server" }
 spring-boot-starter-test = { group = "org.springframework.boot", name = "spring-boot-starter-test" }
+spring-boot-starter-batch = { group = "org.springframework.boot", name = "spring-boot-starter-batch" }
 flyway-core = { group = "org.flywaydb", name = "flyway-core" }
 flyway-database-postgresql = { group = "org.flywaydb", name = "flyway-database-postgresql" }
 postgresql = { group = "org.postgresql", name = "postgresql" }
@@ -24,6 +25,7 @@ junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform
 mapstruct = { group = "org.mapstruct", name = "mapstruct", version.ref = "mapstruct" }
 mapstruct-processor = { group = "org.mapstruct", name = "mapstruct-processor", version.ref = "mapstruct" }
 lombok-mapstruct-binding = { group = "org.projectlombok", name = "lombok-mapstruct-binding", version.ref = "lombok-mapstruct-binding" }
+
 
 [plugins]
 spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dependency-management" }
