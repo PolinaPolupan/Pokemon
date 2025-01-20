@@ -16,6 +16,12 @@ spring:
     enabled:
       true
 
+  datasource:
+    url: jdbc:tc:postgresql:17.2-alpine:///test_database
+    username: user
+    password: password
+    driver-class-name: org.postgresql.Driver
+
 logging:
   level:
     root: INFO
