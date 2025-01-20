@@ -8,17 +8,11 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring")
 public interface CardMapper {
 
-    @Mapping(source = "stage", target = "pokemonStage")
-    @Mapping(source = "attackSkills", target = "skills")
-    @Mapping(source = "evolvesFrom", target = "evolvesFrom")
     @Mapping(source = "weaknessType", target = "weaknessType", qualifiedByName = "stringToEnergyType")
     @Mapping(source = "resistanceType", target = "resistanceType", qualifiedByName = "stringToEnergyType")
     CardDto mapToDto(Card card);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(source = "pokemonStage", target = "stage")
-    @Mapping(source = "skills", target = "attackSkills")
-    @Mapping(source = "evolvesFrom", target = "evolvesFrom")
     @Mapping(source = "weaknessType", target = "weaknessType", qualifiedByName = "energyTypeToString")
     @Mapping(source = "resistanceType", target = "resistanceType", qualifiedByName = "energyTypeToString")
     Card mapDtoToCard(CardDto dto);

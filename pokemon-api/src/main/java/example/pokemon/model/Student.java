@@ -17,9 +17,6 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String firstName;
-    @Column(name = "family_name")
     private String lastName;
-    private String surName;
-    @Column(name = "\"group\"")
-    private String group;
+    private String studentGroup;
 }

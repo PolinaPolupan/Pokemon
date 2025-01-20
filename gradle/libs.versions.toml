@@ -7,6 +7,7 @@ spring-boot = "3.4.1"
 spring-dependency-management = "1.1.7"
 mapstruct = "1.6.3"
 lombok-mapstruct-binding = "0.2.0"
+h2 = "1.3.148"
 
 [libraries]
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
@@ -16,6 +17,9 @@ spring-boot-starter-security = { group = "org.springframework.boot", name = "spr
 spring-boot-starter-oauth2-resource-server = { group = "org.springframework.boot", name = "spring-boot-starter-oauth2-resource-server" }
 spring-boot-starter-oauth2-authorization-server = { group = "org.springframework.boot", name = "spring-boot-starter-oauth2-authorization-server" }
 spring-boot-starter-test = { group = "org.springframework.boot", name = "spring-boot-starter-test" }
+spring-boot-starter-batch = { group = "org.springframework.boot", name = "spring-boot-starter-batch" }
+spring-batch-test = { group = "org.springframework.batch", name = "spring-batch-test" }
+h2 = { group = "com.h2database", name = "h2" }
 flyway-core = { group = "org.flywaydb", name = "flyway-core" }
 flyway-database-postgresql = { group = "org.flywaydb", name = "flyway-database-postgresql" }
 postgresql = { group = "org.postgresql", name = "postgresql" }
@@ -24,6 +28,8 @@ junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform
 mapstruct = { group = "org.mapstruct", name = "mapstruct", version.ref = "mapstruct" }
 mapstruct-processor = { group = "org.mapstruct", name = "mapstruct-processor", version.ref = "mapstruct" }
 lombok-mapstruct-binding = { group = "org.projectlombok", name = "lombok-mapstruct-binding", version.ref = "lombok-mapstruct-binding" }
+testcontainers-postgresql = { group = "org.testcontainers", name = "postgresql" }
+testcontainers-junit-jupiter = { group = "org.testcontainers", name = "junit-jupiter" }
 
 [plugins]
 spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dependency-management" }

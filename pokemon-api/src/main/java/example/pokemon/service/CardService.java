@@ -36,11 +36,10 @@ public class CardService {
             throw new StudentNotFoundException("Invalid null student");
         }
 
-        studentRepository.findByFirstNameAndLastNameAndSurNameAndGroup(
+        studentRepository.findByFirstNameAndLastNameAndStudentGroup(
                 card.getPokemonOwner().getFirstName(),
                 card.getPokemonOwner().getLastName(),
-                card.getPokemonOwner().getSurName(),
-                card.getPokemonOwner().getGroup()).ifPresent(c ->
+                card.getPokemonOwner().getStudentGroup()).ifPresent(c ->
                 { throw new DuplicateCardException("A card with the same owner already exists."); }
         );
 
@@ -62,11 +61,10 @@ public class CardService {
     }
 
     public CardDto getByOwner(StudentDto owner) {
-        Student student = studentRepository.findByFirstNameAndLastNameAndSurNameAndGroup(
+        Student student = studentRepository.findByFirstNameAndLastNameAndStudentGroup(
             owner.getFirstName(),
             owner.getLastName(),
-            owner.getSurName(),
-            owner.getGroup()).orElseThrow(
+            owner.getStudentGroup()).orElseThrow(
             () -> { throw new StudentNotFoundException("Student not found"); }
         );
 

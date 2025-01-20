@@ -14,6 +14,5 @@ import lombok.NoArgsConstructor;
 public class StudentDto {
     private String firstName;
     private String lastName;
-    private String surName;
-    private String group;
+    private String studentGroup;
 }

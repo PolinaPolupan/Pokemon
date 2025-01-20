@@ -14,13 +14,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CardDto {
-    private PokemonStage pokemonStage;
+    private PokemonStage stage;
     private String cardNumber;
     private String name;
     private int hp;
     private EnergyType pokemonType;
     private CardDto evolvesFrom;
-    private List<AttackSkill> skills;
+    private List<AttackSkill> attackSkills;
     private EnergyType weaknessType;
     private EnergyType resistanceType;
     private String retreatCost;

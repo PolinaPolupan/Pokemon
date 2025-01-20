@@ -21,6 +21,7 @@ dependencies {
     implementation(libs.spring.boot.starter.web)
     implementation(libs.spring.boot.starter.data.jpa)
     implementation(libs.spring.boot.starter.security)
+    implementation(libs.spring.boot.starter.batch)
     implementation(libs.spring.boot.starter.oauth2.resource.server)
     implementation(libs.flyway.core)
     implementation(libs.flyway.database.postgresql)
@@ -33,6 +34,9 @@ dependencies {
     annotationProcessor(libs.lombok.mapstruct.binding)
 
     testImplementation(libs.spring.boot.starter.test)
+    testImplementation(libs.spring.batch.test)
+    testImplementation(libs.testcontainers.junit.jupiter)
+    testImplementation(libs.testcontainers.postgresql)
     testRuntimeOnly(libs.junit.platform.launcher)
 }
 

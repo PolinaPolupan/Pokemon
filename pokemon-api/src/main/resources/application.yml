@@ -2,6 +2,10 @@ spring:
   application:
     name: Pokemon
 
+  batch:
+    jdbc:
+      table-prefix: batch.batch_
+
   jpa:
     hibernate:
       ddl-auto: update
