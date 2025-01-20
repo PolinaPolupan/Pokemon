@@ -13,7 +13,6 @@ import org.hibernate.type.SqlTypes;
 import java.util.List;
 import java.util.UUID;
 
-import static org.hibernate.type.SqlTypes.JSON;
 
 
 @Data
@@ -23,7 +22,7 @@ import static org.hibernate.type.SqlTypes.JSON;
 @Table(name = "cards")
 public class Card {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "UUID")
     public UUID id;
 
     public String stage;
