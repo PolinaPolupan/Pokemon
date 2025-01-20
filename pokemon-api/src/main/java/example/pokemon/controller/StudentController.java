@@ -30,9 +30,9 @@ public class StudentController {
     }
 
     @GetMapping
-    public ResponseEntity<StudentDto> getByFirstNameLastNameAndSurName(@RequestBody GetStudentRequest request) {
+    public ResponseEntity<StudentDto> getByFirstNameLastName(@RequestBody GetStudentRequest request) {
         return ResponseEntity.status(HttpStatus.OK)
-                .body(service.getByFirstNameLastNameAndSurName(request));
+                .body(service.getByFirstNameLastName(request));
     }
 
     @PostMapping

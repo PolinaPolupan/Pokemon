@@ -43,26 +43,20 @@ public class StudentService {
     }
 
     public List<StudentDto> getByStudentGroup(String group) {
-        return repository.findByGroup(group)
+        return repository.findByStudentGroup(group)
                 .stream()
                 .map(mapper::mapToDto)
                 .collect(Collectors.toList());
     }
 
-    public StudentDto getByFirstNameLastNameAndSurName(GetStudentRequest request) {
+    public StudentDto getByFirstNameLastName(GetStudentRequest request) {
 
-        List<Student> students = repository.findByFirstNameAndLastNameAndSurName(
-                request.getFirstName(),
-                request.getLastName(),
-                request.getSurName()
+        Student student = repository.findByFirstNameAndLastName(
+            request.getFirstName(),
+            request.getLastName())
+            .orElseThrow(() -> { throw new StudentNotFoundException("Student not found"); }
         );
 
-        if (students.isEmpty()) {
-            throw new StudentNotFoundException("Student not found");
-        } else if (students.size() > 1) {
-            throw new DuplicateStudentException("Multiple students found with the same name");
-        }
-
-        return mapper.mapToDto(students.get(0));
+        return mapper.mapToDto(student);
     }
 }
