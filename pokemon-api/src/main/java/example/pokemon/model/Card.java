@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import example.pokemon.dto.AttackSkill;
 import example.pokemon.serialize.SkillDeserializer;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,8 @@ public class Card {
     public UUID id;
 
     public String stage;
+
+    @NotBlank(message = "Name is mandatory")
     public String name;
 
     @Column(columnDefinition = "smallint")
