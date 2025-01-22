@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import example.pokemon.dto.AttackSkill;
 import example.pokemon.serialize.SkillDeserializer;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,6 @@ import org.hibernate.type.SqlTypes;
 import java.util.List;
 import java.util.UUID;
 
-import static org.hibernate.type.SqlTypes.JSON;
 
 
 @Data
@@ -23,10 +23,12 @@ import static org.hibernate.type.SqlTypes.JSON;
 @Table(name = "cards")
 public class Card {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "UUID")
     public UUID id;
 
     public String stage;
+
+    @NotBlank(message = "Name is mandatory")
     public String name;
 
     @Column(columnDefinition = "smallint")

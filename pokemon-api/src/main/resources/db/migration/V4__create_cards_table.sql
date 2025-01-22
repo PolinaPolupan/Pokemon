@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS pokemon.cards (
-    id UUID NOT NULL,
+    id UUID NOT NULL DEFAULT uuid_generate_v4(),
     stage VARCHAR(255),
     name VARCHAR(255),
     hp INTEGER NOT NULL,

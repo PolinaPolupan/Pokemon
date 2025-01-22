@@ -61,7 +61,8 @@ public class RestConfig {
                         .hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/v1/students/**")
                         .hasRole("ADMIN")
-                        .anyRequest().permitAll()
+                        .requestMatchers("/actuator/**").permitAll()
+                        .anyRequest().authenticated()
                 )
             .httpBasic(Customizer.withDefaults())
             .oauth2ResourceServer((oauth2) -> oauth2

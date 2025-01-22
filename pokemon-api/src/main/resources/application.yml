@@ -3,6 +3,8 @@ spring:
     name: Pokemon
 
   batch:
+    job:
+      enabled: false
     jdbc:
       table-prefix: batch.batch_
 
