@@ -3,18 +3,23 @@ package example.pokemon.batch;
 import example.pokemon.dto.StudentDto;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
+import org.springframework.batch.item.database.JdbcCursorItemReader;
 import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilder;
+import org.springframework.batch.item.database.builder.JdbcCursorItemReaderBuilder;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.support.JdbcTransactionManager;
 
 import javax.sql.DataSource;
@@ -54,10 +59,11 @@ public class PokemonJobConfiguration {
     }
 
     @Bean
-    public FlatFileItemReader<StudentDto> billingDataFileReader() {
+    @StepScope
+    public FlatFileItemReader<StudentDto> billingDataFileReader(@Value("#{jobParameters['input.file']}") String inputFile) {
         return new FlatFileItemReaderBuilder<StudentDto>()
                 .name("billingDataFileReader")
-                .resource(new FileSystemResource("staging/students.csv"))
+                .resource(new FileSystemResource(inputFile))
                 .delimited()
                 .names("firstName", "lastName", "studentGroup")
                 .targetType(StudentDto.class)
