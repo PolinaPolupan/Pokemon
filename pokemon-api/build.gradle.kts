@@ -24,10 +24,12 @@ dependencies {
     implementation(libs.spring.boot.starter.batch)
     implementation(libs.spring.boot.starter.actuator)
     implementation(libs.spring.boot.starter.validation)
+    implementation(libs.spring.boot.starter.thymeleaf)
     implementation(libs.spring.boot.starter.oauth2.resource.server)
     implementation(libs.flyway.core)
     implementation(libs.flyway.database.postgresql)
     implementation(libs.mapstruct)
+    implementation(libs.datasource.proxy.spring.boot.starter)
 
     runtimeOnly(libs.postgresql)
     compileOnly(libs.lombok)

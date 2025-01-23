@@ -59,3 +59,16 @@ logging:
         security.oauth2: TRACE
         security.jwt: TRACE
     root: INFO
+
+    net:
+      ttddyy:
+        dsproxy:
+          listener: DEBUG
+
+server:
+  error:
+    whitelabel:
+      enabled: false
+    path: /error
+
+
