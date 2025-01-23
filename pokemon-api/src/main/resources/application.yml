@@ -59,3 +59,9 @@ logging:
         security.oauth2: TRACE
         security.jwt: TRACE
     root: INFO
+
+server:
+  error:
+    whitelabel:
+      enabled: false
+    path: /error
