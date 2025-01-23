@@ -29,6 +29,7 @@ dependencies {
     implementation(libs.flyway.core)
     implementation(libs.flyway.database.postgresql)
     implementation(libs.mapstruct)
+    implementation(libs.datasource.proxy.spring.boot.starter)
 
     runtimeOnly(libs.postgresql)
     compileOnly(libs.lombok)
