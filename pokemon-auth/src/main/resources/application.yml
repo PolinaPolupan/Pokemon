@@ -1,6 +1,10 @@
 server:
   port: 9000
 
+  error:
+    whitelabel:
+      enabled: false
+
 spring:
   application:
     name: Auth
@@ -52,7 +56,9 @@ spring:
 jwt:
   private.key: classpath:app.key
   public.key: classpath:app.pub
+  expiration: 3600
 
 logging:
   level:
     org.springframework.security: DEBUG
+

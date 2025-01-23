@@ -2,6 +2,7 @@ package example.auth.security;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -20,7 +21,8 @@ public class JwtProvider {
 
     private final JwtEncoder jwtEncoder;
 
-    private final Long jwtExpirationInSec = 36000L;
+    @Value("${jwt.expiration}")
+    private Long jwtExpirationInSec;
 
     public String generateToken(Authentication authentication) {
         User principal = (User) authentication.getPrincipal();
