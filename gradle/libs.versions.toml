@@ -21,6 +21,7 @@ spring-boot-starter-batch = { group = "org.springframework.boot", name = "spring
 spring-batch-test = { group = "org.springframework.batch", name = "spring-batch-test" }
 spring-boot-starter-actuator = { group = "org.springframework.boot", name = "spring-boot-starter-actuator" }
 spring-boot-starter-validation = { group = "org.springframework.boot", name = "spring-boot-starter-validation" }
+spring-boot-starter-thymeleaf = { group = "org.springframework.boot", name = "spring-boot-starter-thymeleaf" }
 flyway-core = { group = "org.flywaydb", name = "flyway-core" }
 flyway-database-postgresql = { group = "org.flywaydb", name = "flyway-database-postgresql" }
 postgresql = { group = "org.postgresql", name = "postgresql" }
