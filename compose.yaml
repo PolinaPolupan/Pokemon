@@ -1,4 +1,11 @@
 services:
+  admin-server:
+    container_name: admin-server
+    build:
+      context: ./pokemon-admin-server
+      dockerfile: Dockerfile
+    ports:
+        - '8090:8090'
   auth-server:
     build:
       context: ./pokemon-auth
