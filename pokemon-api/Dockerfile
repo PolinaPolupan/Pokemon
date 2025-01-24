@@ -1,7 +1,10 @@
+FROM openjdk:17-oracle as builder
+COPY build/libs/*.jar app.jar
+RUN java -Djarmode=tools -jar app.jar extract --layers --launcher
+
 FROM openjdk:17-oracle
-WORKDIR /app
-RUN mkdir -p /app/staging
-ARG INPUT_FILE=src/main/resources/students.csv
-COPY ${INPUT_FILE} /app/resources/students.csv
-COPY build/libs/*.jar /app/app.jar
-ENTRYPOINT ["java", "-jar", "/app/app.jar", "input.file=/app/resources/students.csv"]
+COPY --from=builder app/dependencies/ ./
+COPY --from=builder app/snapshot-dependencies/ ./
+COPY --from=builder app/spring-boot-loader/ ./
+COPY --from=builder app/application/ ./
+ENTRYPOINT ["java", "org.springframework.boot.loader.launch.JarLauncher"]

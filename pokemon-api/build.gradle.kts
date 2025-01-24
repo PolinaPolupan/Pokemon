@@ -51,3 +51,7 @@ tasks.withType<Test> {
 tasks.jar {
     enabled = false
 }
+
+tasks.getByName<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
+    layered { }
+}
