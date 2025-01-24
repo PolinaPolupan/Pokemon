@@ -9,6 +9,7 @@ mapstruct = "1.6.3"
 lombok-mapstruct-binding = "0.2.0"
 h2 = "1.3.148"
 datasource-proxy = "1.9.1"
+admin = "3.4.1"
 
 [libraries]
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
@@ -23,6 +24,9 @@ spring-batch-test = { group = "org.springframework.batch", name = "spring-batch-
 spring-boot-starter-actuator = { group = "org.springframework.boot", name = "spring-boot-starter-actuator" }
 spring-boot-starter-validation = { group = "org.springframework.boot", name = "spring-boot-starter-validation" }
 spring-boot-starter-thymeleaf = { group = "org.springframework.boot", name = "spring-boot-starter-thymeleaf" }
+spring-boot-admin-starter-server = { group = "de.codecentric", name = "spring-boot-admin-starter-server", version.ref = "admin" }
+spring-boot-admin-starter-client = { group = "de.codecentric", name = "spring-boot-admin-starter-client", version.ref = "admin" }
+spring-boot-admin-server-ui = { group = "de.codecentric", name = "spring-boot-admin-server-ui", version.ref = "admin" }
 datasource-proxy-spring-boot-starter = { group = "com.github.gavlyukovskiy", name = "datasource-proxy-spring-boot-starter", version.ref = "datasource-proxy" }
 flyway-core = { group = "org.flywaydb", name = "flyway-core" }
 flyway-database-postgresql = { group = "org.flywaydb", name = "flyway-database-postgresql" }

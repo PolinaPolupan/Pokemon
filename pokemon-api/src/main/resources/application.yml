@@ -46,6 +46,13 @@ spring:
             authorization-uri: http://auth-server:9000/oauth2/authorize  # Set your auth server URL
             token-uri: http://auth-server:9000/oauth2/token  # Token endpoint
 
+  boot:
+    admin:
+      client:
+        url: http://admin-server:8090
+        username: admin
+        password: admin
+
 jwt:
   public.key: classpath:app.pub
   issuer-uri: http://localhost:9000
@@ -66,9 +73,20 @@ logging:
           listener: DEBUG
 
 server:
+  port:
+    8080
   error:
     whitelabel:
       enabled: false
     path: /error
+
+management:
+  endpoints:
+    web:
+    exposure:
+      include: '*'
+  endpoint:
+    health:
+      show-details: always
 
 

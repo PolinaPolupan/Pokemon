@@ -26,6 +26,7 @@ dependencies {
     implementation(libs.spring.boot.starter.validation)
     implementation(libs.spring.boot.starter.thymeleaf)
     implementation(libs.spring.boot.starter.oauth2.resource.server)
+    implementation(libs.spring.boot.admin.starter.client)
     implementation(libs.flyway.core)
     implementation(libs.flyway.database.postgresql)
     implementation(libs.mapstruct)
@@ -50,4 +51,8 @@ tasks.withType<Test> {
 
 tasks.jar {
     enabled = false
+}
+
+tasks.getByName<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
+    layered { }
 }

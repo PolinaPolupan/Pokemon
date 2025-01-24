@@ -9,6 +9,13 @@ spring:
   application:
     name: Auth
 
+  boot:
+    admin:
+      client:
+        url: http://admin-server:8090
+        username: admin
+        password: admin
+
   security:
     oauth2:
       authorizationserver:
@@ -62,3 +69,11 @@ logging:
   level:
     org.springframework.security: DEBUG
 
+management:
+  endpoints:
+    web:
+    exposure:
+      include: '*'
+  endpoint:
+    health:
+      show-details: always
