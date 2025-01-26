@@ -32,19 +32,9 @@ spring:
 
   security:
     oauth2:
-      client:
-        registration:
-          pokemon-client:
-            client-id: pokemon-client
-            client-secret: "{noop}secret"  # Update if you need stronger encryption
-            authorization-grant-type: authorization_code
-            redirect-uri: http://127.0.0.1:8080/login/oauth2/code/pokemon-client
-            scope:
-              - openid
-              - articles.read
-            client-authentication-method: client_secret_basic
-            authorization-uri: http://auth-server:9000/oauth2/authorize  # Set your auth server URL
-            token-uri: http://auth-server:9000/oauth2/token  # Token endpoint
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/pokemon-keycloak
 
   boot:
     admin:
@@ -55,7 +45,7 @@ spring:
 
 jwt:
   public.key: classpath:app.pub
-  issuer-uri: http://localhost:9000
+  issuer-uri: http://localhost:8080/realms/pokemon-keycloak
   audiences: pokemon-client
 
 logging:
@@ -74,7 +64,7 @@ logging:
 
 server:
   port:
-    8080
+    8082
   error:
     whitelabel:
       enabled: false

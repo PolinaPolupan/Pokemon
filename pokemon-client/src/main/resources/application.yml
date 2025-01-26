@@ -1,0 +1,24 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: spring-boot-mvc-client
+
+  security:
+    oauth2:
+      client:
+        provider:
+          pokemon-keycloak:
+            issuer-uri: http://keycloak:8080/realms/pokemon-keycloak
+        registration:
+          keycloak:
+            provider: pokemon-keycloak
+            authorization-grant-type: authorization_code
+            client-id: pokemon-keycloak-confidential
+            client-secret: secret
+            scope: openid
+
+logging:
+  level:
+    org.springframework.security.oauth2: DEBUG
