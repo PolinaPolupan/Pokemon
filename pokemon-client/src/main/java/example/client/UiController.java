@@ -19,15 +19,15 @@ public class UiController {
                         : "");
         model.addAttribute("isAuthenticated",
                 auth != null && auth.isAuthenticated());
-        model.addAttribute("isNice",
+        model.addAttribute("isUser",
                 auth != null && auth.getAuthorities().stream().anyMatch(authority -> {
-                    return Objects.equals("NICE", authority.getAuthority());
+                    return Objects.equals("USER", authority.getAuthority());
                 }));
         return "index.html";
     }
 
-    @GetMapping("/nice")
+    @GetMapping("/user")
     public String getNice(Model model, Authentication auth) {
-        return "nice.html";
+        return "user.html";
     }
 }
