@@ -2,6 +2,7 @@ package example.pokemon.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -62,10 +63,14 @@ public class RestConfig {
             csrf.disable();
         });
 
-        http.authorizeHttpRequests(requests -> {
-            requests.requestMatchers("/me").authenticated();
-            requests.anyRequest().authenticated();
-        });
+        http.authorizeHttpRequests((authorize) -> authorize
+                .requestMatchers(HttpMethod.POST, "/api/v1/cards/**")
+                .hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.POST, "/api/v1/students/**")
+                .hasAuthority("ADMIN")
+                .requestMatchers("/actuator/**").permitAll()
+                .anyRequest().authenticated()
+        );
 
         return http.build();
     }
