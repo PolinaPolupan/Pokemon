@@ -34,7 +34,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/realms/pokemon-keycloak
+          issuer-uri: http://keycloak:8080/realms/pokemon-keycloak
 
   boot:
     admin:
@@ -43,10 +43,6 @@ spring:
         username: admin
         password: admin
 
-jwt:
-  public.key: classpath:app.pub
-  issuer-uri: http://localhost:8080/realms/pokemon-keycloak
-  audiences: pokemon-client
 
 logging:
   level:
