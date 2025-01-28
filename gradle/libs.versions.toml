@@ -12,22 +12,22 @@ datasource-proxy = "1.9.1"
 admin = "3.4.1"
 
 [libraries]
-guava = { module = "com.google.guava:guava", version.ref = "guava" }
 spring-boot-starter-web = { group = "org.springframework.boot", name = "spring-boot-starter-web" }
 spring-boot-starter-data-jpa = { group = "org.springframework.boot", name = "spring-boot-starter-data-jpa" }
+spring-boot-starter-data-redis = { group = "org.springframework.boot", name = "spring-boot-starter-data-redis" }
 spring-boot-starter-security = { group = "org.springframework.boot", name = "spring-boot-starter-security" }
 spring-boot-starter-oauth2-resource-server = { group = "org.springframework.boot", name = "spring-boot-starter-oauth2-resource-server" }
 spring-boot-starter-oauth2-authorization-server = { group = "org.springframework.boot", name = "spring-boot-starter-oauth2-authorization-server" }
 spring-boot-starter-oauth2-client = { group = "org.springframework.boot", name = "spring-boot-starter-oauth2-client" }
 spring-boot-starter-test = { group = "org.springframework.boot", name = "spring-boot-starter-test" }
 spring-boot-starter-batch = { group = "org.springframework.boot", name = "spring-boot-starter-batch" }
-spring-batch-test = { group = "org.springframework.batch", name = "spring-batch-test" }
 spring-boot-starter-actuator = { group = "org.springframework.boot", name = "spring-boot-starter-actuator" }
 spring-boot-starter-validation = { group = "org.springframework.boot", name = "spring-boot-starter-validation" }
 spring-boot-starter-thymeleaf = { group = "org.springframework.boot", name = "spring-boot-starter-thymeleaf" }
 spring-boot-admin-starter-server = { group = "de.codecentric", name = "spring-boot-admin-starter-server", version.ref = "admin" }
 spring-boot-admin-starter-client = { group = "de.codecentric", name = "spring-boot-admin-starter-client", version.ref = "admin" }
 spring-boot-admin-server-ui = { group = "de.codecentric", name = "spring-boot-admin-server-ui", version.ref = "admin" }
+spring-batch-test = { group = "org.springframework.batch", name = "spring-batch-test" }
 datasource-proxy-spring-boot-starter = { group = "com.github.gavlyukovskiy", name = "datasource-proxy-spring-boot-starter", version.ref = "datasource-proxy" }
 flyway-core = { group = "org.flywaydb", name = "flyway-core" }
 flyway-database-postgresql = { group = "org.flywaydb", name = "flyway-database-postgresql" }
@@ -39,6 +39,7 @@ mapstruct-processor = { group = "org.mapstruct", name = "mapstruct-processor", v
 lombok-mapstruct-binding = { group = "org.projectlombok", name = "lombok-mapstruct-binding", version.ref = "lombok-mapstruct-binding" }
 testcontainers-postgresql = { group = "org.testcontainers", name = "postgresql" }
 testcontainers-junit-jupiter = { group = "org.testcontainers", name = "junit-jupiter" }
+guava = { module = "com.google.guava:guava", version.ref = "guava" }
 
 [plugins]
 spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dependency-management" }
