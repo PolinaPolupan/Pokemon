@@ -67,8 +67,8 @@ public class SecurityConfig {
         });
 
         http.authorizeHttpRequests(requests -> {
-            requests.requestMatchers("/", "/favicon.ico").permitAll();
-            requests.requestMatchers("/nice").hasAuthority("NICE");
+            requests.requestMatchers("/").permitAll();
+            requests.requestMatchers("/user").hasAuthority("USER");
             requests.anyRequest().denyAll();
         });
 

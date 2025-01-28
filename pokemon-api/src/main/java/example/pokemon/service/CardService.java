@@ -11,6 +11,7 @@ import example.pokemon.model.Student;
 import example.pokemon.repository.CardRepository;
 import example.pokemon.repository.StudentRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,8 +47,8 @@ public class CardService {
         cardRepository.save(cardMapper.mapDtoToCard(card));
     }
 
-    public List<CardDto> getAll() {
-        return cardRepository.findAll()
+    public List<CardDto> getAll(Pageable page) {
+        return cardRepository.findAll(page)
                 .stream()
                 .map(cardMapper::mapToDto)
                 .collect(Collectors.toList());

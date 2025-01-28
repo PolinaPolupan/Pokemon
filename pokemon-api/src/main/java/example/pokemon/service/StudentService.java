@@ -8,6 +8,7 @@ import example.pokemon.model.Student;
 import example.pokemon.dto.GetStudentRequest;
 import example.pokemon.repository.StudentRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,8 +36,8 @@ public class StudentService {
         repository.save(mapper.mapDtoToStudent(student));
     }
 
-    public List<StudentDto> getAll() {
-        return repository.findAll()
+    public List<StudentDto> getAll(Pageable page) {
+        return repository.findAll(page)
                 .stream()
                 .map(mapper::mapToDto)
                 .collect(Collectors.toList());
