@@ -1,13 +1,13 @@
 package example.pokemon.service;
 
-import example.pokemon.dto.StudentDto;
+import example.pokemon.dto.*;
 import example.pokemon.exception.DuplicateStudentException;
 import example.pokemon.exception.StudentNotFoundException;
 import example.pokemon.mapper.StudentMapper;
 import example.pokemon.model.Student;
-import example.pokemon.dto.GetStudentRequest;
 import example.pokemon.repository.StudentRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -36,11 +36,21 @@ public class StudentService {
         repository.save(mapper.mapDtoToStudent(student));
     }
 
-    public List<StudentDto> getAll(Pageable page) {
-        return repository.findAll(page)
+    public StudentsPage getAll(Pageable page) {
+        Page<Student> pagedResult = repository.findAll(page);
+        List<StudentDto> students = pagedResult
+                .getContent()
                 .stream()
                 .map(mapper::mapToDto)
-                .collect(Collectors.toList());
+                .toList();
+
+        StudentsPage response = new StudentsPage();
+        response.setPage(pagedResult.getNumber());
+        response.setTotal(pagedResult.getTotalElements());
+        response.setPages(pagedResult.getTotalPages());
+        response.setStudents(students);
+
+        return response;
     }
 
     public List<StudentDto> getByStudentGroup(String group) {
