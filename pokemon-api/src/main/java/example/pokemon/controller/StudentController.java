@@ -2,6 +2,7 @@ package example.pokemon.controller;
 
 import example.pokemon.dto.GetStudentRequest;
 import example.pokemon.dto.StudentDto;
+import example.pokemon.dto.StudentsPage;
 import example.pokemon.service.StudentService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -20,11 +21,12 @@ public class StudentController {
     private final StudentService service;
 
     @GetMapping("/all")
-    public ResponseEntity<List<StudentDto>> getAllStudents(
+    public ResponseEntity<StudentsPage> getAllStudents(
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "10") Integer size
     ) {
         Pageable paging = PageRequest.of(page, size);
+
         return ResponseEntity.status(HttpStatus.OK)
                 .body(service.getAll(paging));
     }

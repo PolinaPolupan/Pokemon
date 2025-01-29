@@ -1,6 +1,7 @@
 package example.pokemon.controller;
 
 import example.pokemon.dto.CardImageResponse;
+import example.pokemon.dto.CardsPage;
 import example.pokemon.service.CardService;
 import example.pokemon.dto.CardDto;
 import example.pokemon.dto.StudentDto;
@@ -12,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 
@@ -25,11 +25,12 @@ public class CardController {
     private final PokemonTcgService pokemonTcgService;
 
     @GetMapping
-    public ResponseEntity<List<CardDto>> getAllCards(
+    public ResponseEntity<CardsPage> getAllCards(
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "10") Integer size
     ) {
         Pageable paging = PageRequest.of(page, size);
+
         return ResponseEntity.status(HttpStatus.OK)
                 .body(service.getAll(paging));
     }

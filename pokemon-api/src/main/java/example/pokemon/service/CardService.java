@@ -1,5 +1,6 @@
 package example.pokemon.service;
 
+import example.pokemon.dto.CardsPage;
 import example.pokemon.exception.CardNotFoundException;
 import example.pokemon.exception.StudentNotFoundException;
 import example.pokemon.dto.CardDto;
@@ -11,13 +12,13 @@ import example.pokemon.model.Student;
 import example.pokemon.repository.CardRepository;
 import example.pokemon.repository.StudentRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -47,11 +48,22 @@ public class CardService {
         cardRepository.save(cardMapper.mapDtoToCard(card));
     }
 
-    public List<CardDto> getAll(Pageable page) {
-        return cardRepository.findAll(page)
+    public CardsPage getAll(Pageable page) {
+
+        Page<Card> pagedResult = cardRepository.findAll(page);
+        List<CardDto> cards = pagedResult
+                .getContent()
                 .stream()
                 .map(cardMapper::mapToDto)
-                .collect(Collectors.toList());
+                .toList();
+
+        CardsPage response = new CardsPage();
+        response.setPage(pagedResult.getNumber());
+        response.setTotal(pagedResult.getTotalElements());
+        response.setPages(pagedResult.getTotalPages());
+        response.setCards(cards);
+
+        return response;
     }
 
     public CardDto getByName(String name) {
