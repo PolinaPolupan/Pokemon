@@ -2,6 +2,7 @@ package example.pokemon.service;
 
 import example.pokemon.dto.CardImageResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -14,6 +15,7 @@ public class PokemonTcgService {
     private final RestTemplate restTemplate = new RestTemplate();
     private static final String API_URL = "https://api.pokemontcg.io/v2/cards?q=name:";
 
+    @Cacheable("card-image")
     public CardImageResponse fetchCardImageByName(String name) {
         String url = API_URL + name;
         try {
