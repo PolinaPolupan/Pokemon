@@ -1,4 +1,4 @@
-FROM openjdk:17-oracle as builder
+FROM openjdk:17-oracle AS builder
 COPY build/libs/*.jar app.jar
 RUN java -Djarmode=tools -jar app.jar extract --layers --launcher
 
