@@ -14,6 +14,8 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.web.servlet.HandlerExceptionResolver;
+import org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver;
 
 import java.util.Collection;
 import java.util.List;
@@ -26,6 +28,7 @@ import java.util.stream.Stream;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class RestConfig {
+
     interface AuthoritiesConverter extends Converter<Map<String, Object>, Collection<GrantedAuthority>> {}
 
     @Bean
