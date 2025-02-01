@@ -26,14 +26,13 @@ dependencies {
     implementation(libs.spring.boot.starter.actuator)
     implementation(libs.spring.boot.starter.validation)
     implementation(libs.spring.boot.starter.thymeleaf)
-    implementation(libs.spring.boot.starter.webflux)
     implementation(libs.spring.boot.starter.oauth2.resource.server)
     implementation(libs.spring.boot.admin.starter.client)
     implementation(libs.flyway.core)
     implementation(libs.flyway.database.postgresql)
     implementation(libs.mapstruct)
     implementation(libs.datasource.proxy.spring.boot.starter)
-
+    implementation(libs.jedis)
 
     runtimeOnly(libs.postgresql)
     compileOnly(libs.lombok)
