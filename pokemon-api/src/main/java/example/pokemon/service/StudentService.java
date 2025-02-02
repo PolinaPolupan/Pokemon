@@ -60,11 +60,9 @@ public class StudentService {
                 .collect(Collectors.toList());
     }
 
-    public StudentDto getByFirstNameLastName(GetStudentRequest request) {
+    public StudentDto getByFirstNameLastName(String firstName, String lastName) {
 
-        Student student = repository.findByFirstNameAndLastName(
-            request.getFirstName(),
-            request.getLastName())
+        Student student = repository.findByFirstNameAndLastName(firstName, lastName)
             .orElseThrow(() -> { throw new StudentNotFoundException("Student not found"); }
         );
 

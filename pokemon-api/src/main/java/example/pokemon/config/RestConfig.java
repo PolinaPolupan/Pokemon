@@ -71,14 +71,16 @@ public class RestConfig {
             csrf.disable();
         });
 
-        http.authorizeHttpRequests((authorize) -> authorize
-                .requestMatchers(HttpMethod.POST, "/api/v1/cards/**")
-                .hasAuthority("ADMIN")
-                .requestMatchers(HttpMethod.POST, "/api/v1/students/**")
-                .hasAuthority("ADMIN")
-                .requestMatchers("/actuator/**").permitAll()
-                .anyRequest().authenticated()
-        );
+        http
+            .authorizeHttpRequests((authorize) -> authorize
+                    .requestMatchers("/v3/**", "/swagger-ui/**").permitAll()
+                    .requestMatchers("/actuator/**").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/api/v1/cards/**")
+                    .hasAuthority("ADMIN")
+                    .requestMatchers(HttpMethod.POST, "/api/v1/students/**")
+                    .hasAuthority("ADMIN")
+                    .anyRequest().authenticated()
+            );
 
         return http.build();
     }

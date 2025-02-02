@@ -73,11 +73,8 @@ public class CardService {
         return cardMapper.mapToDto(card);
     }
 
-    public CardDto getByOwner(StudentDto owner) {
-        Student student = studentRepository.findByFirstNameAndLastNameAndStudentGroup(
-            owner.getFirstName(),
-            owner.getLastName(),
-            owner.getStudentGroup()).orElseThrow(
+    public CardDto getByOwner(UUID ownerId) {
+        Student student = studentRepository.findById(ownerId).orElseThrow(
             () -> { throw new StudentNotFoundException("Student not found"); }
         );
 
