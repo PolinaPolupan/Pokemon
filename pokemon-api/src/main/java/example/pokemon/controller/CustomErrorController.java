@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,19 +67,22 @@ public class CustomErrorController implements ErrorController {
         return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(errorInfo);
     }
 
-    @RequestMapping("/error")
-    public ResponseEntity<ErrorInfo> handleError(final HttpServletRequest request) {
-        String requestUrl = request.getRequestURL().toString();
-        Throwable throwable = (Throwable) request.getAttribute(RequestDispatcher.ERROR_EXCEPTION);
+    @GetMapping(value = "/error")
+    public String handleError(HttpServletRequest request) {
+
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 
-        int statusCode = 400;
         if (status != null) {
-            statusCode = Integer.parseInt(status.toString());
+
+            Integer statusCode = Integer.valueOf(status.toString());
+
+            if(statusCode == HttpStatus.NOT_FOUND.value()) {
+                return "error-404";
+            }
+            else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
+                return "error-500";
+            }
         }
-
-        ErrorInfo errorInfo = new ErrorInfo(requestUrl, throwable.getMessage());
-
-        return ResponseEntity.status(statusCode).body(errorInfo);
+        return "error";
     }
 }

@@ -29,6 +29,11 @@ import java.util.stream.Stream;
 @EnableMethodSecurity
 public class RestConfig {
 
+    @Bean
+    public HandlerExceptionResolver createDefaultHandlerExceptionResolver() {
+        return new DefaultHandlerExceptionResolver();
+    }
+
     interface AuthoritiesConverter extends Converter<Map<String, Object>, Collection<GrantedAuthority>> {}
 
     @Bean
