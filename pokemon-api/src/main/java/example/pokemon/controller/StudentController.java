@@ -1,6 +1,5 @@
 package example.pokemon.controller;
 
-import example.pokemon.dto.GetStudentRequest;
 import example.pokemon.dto.StudentDto;
 import example.pokemon.dto.StudentsPage;
 import example.pokemon.service.StudentService;
@@ -20,32 +19,31 @@ public class StudentController {
 
     private final StudentService service;
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<StudentsPage> getAllStudents(
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "10") Integer size
     ) {
         Pageable paging = PageRequest.of(page, size);
-
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(service.getAll(paging));
+        return ResponseEntity.ok(service.getAll(paging));
     }
 
-    @GetMapping("/{group}")
+    @GetMapping("/group/{group}")
     public ResponseEntity<List<StudentDto>> getByStudentGroup(@PathVariable String group) {
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(service.getByStudentGroup(group));
+        return ResponseEntity.ok(service.getByStudentGroup(group));
     }
 
-    @GetMapping
-    public ResponseEntity<StudentDto> getByFirstNameLastName(@RequestBody GetStudentRequest request) {
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(service.getByFirstNameLastName(request));
+    @GetMapping("/search")
+    public ResponseEntity<StudentDto> getByFirstNameLastName(
+            @RequestParam String firstName,
+            @RequestParam String lastName
+    ) {
+        return ResponseEntity.ok(service.getByFirstNameLastName(firstName, lastName));
     }
 
     @PostMapping
     public ResponseEntity<Void> createStudent(@RequestBody StudentDto student) {
         service.save(student);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

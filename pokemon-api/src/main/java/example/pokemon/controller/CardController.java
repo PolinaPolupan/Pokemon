@@ -30,38 +30,32 @@ public class CardController {
             @RequestParam(defaultValue = "10") Integer size
     ) {
         Pageable paging = PageRequest.of(page, size);
-
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(service.getAll(paging));
+        return ResponseEntity.ok(service.getAll(paging));
     }
 
-    @GetMapping("/{name}")
-    public ResponseEntity<CardDto> getByName(@PathVariable String name) {
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(service.getByName(name));
-    }
-
-    @GetMapping("/owner")
-    public ResponseEntity<CardDto> getByOwner(@RequestBody StudentDto owner) {
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(service.getByOwner(owner));
-    }
-
-    @GetMapping("/id/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<CardDto> getById(@PathVariable UUID id) {
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(service.getById(id));
+        return ResponseEntity.ok(service.getById(id));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<CardDto> getByName(@RequestParam String name) {
+        return ResponseEntity.ok(service.getByName(name));
+    }
+
+    @GetMapping("/owner/{ownerId}")
+    public ResponseEntity<CardDto> getByOwner(@PathVariable UUID ownerId) {
+        return ResponseEntity.ok(service.getByOwner(ownerId));
     }
 
     @PostMapping
     public ResponseEntity<Void> createCard(@RequestBody CardDto card) {
         service.save(card);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("/card-image")
+    @GetMapping("/image")
     public ResponseEntity<CardImageResponse> getCardImage(@RequestParam String name) {
-        CardImageResponse response = pokemonTcgService.fetchCardImageByName(name);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.ok(pokemonTcgService.fetchCardImageByName(name));
     }
 }
