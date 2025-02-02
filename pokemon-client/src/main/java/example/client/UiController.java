@@ -20,14 +20,13 @@ public class UiController {
         model.addAttribute("isAuthenticated",
                 auth != null && auth.isAuthenticated());
         model.addAttribute("isUser",
-                auth != null && auth.getAuthorities().stream().anyMatch(authority -> {
-                    return Objects.equals("USER", authority.getAuthority());
-                }));
+                auth != null && auth.getAuthorities().stream().anyMatch(authority ->
+                        Objects.equals("USER", authority.getAuthority())));
         return "index.html";
     }
 
     @GetMapping("/user")
-    public String getNice(Model model, Authentication auth) {
+    public String getUser(Model model, Authentication auth) {
         return "user.html";
     }
 }

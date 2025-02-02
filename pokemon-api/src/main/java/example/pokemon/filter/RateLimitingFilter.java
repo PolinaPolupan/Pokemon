@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
@@ -16,7 +17,8 @@ import redis.clients.jedis.JedisPool;
 @Component
 public class RateLimitingFilter extends OncePerRequestFilter {
 
-    private static final int MAX_REQUESTS_PER_MINUTE = 5;
+    @Value("${filter.max-requests-per-minute}")
+    private int maxRequestsPerMinute;
 
     @Autowired
     @Qualifier("handlerExceptionResolver")
@@ -41,7 +43,7 @@ public class RateLimitingFilter extends OncePerRequestFilter {
             } else {
                 int currentCount = Integer.parseInt(requestCount);
 
-                if (currentCount < MAX_REQUESTS_PER_MINUTE) {
+                if (currentCount < maxRequestsPerMinute) {
                     // Increment the request count
                     jedis.incr(key);
                 } else {

@@ -80,4 +80,5 @@ management:
     health:
       show-details: always
 
-
+filter:
+  max-requests-per-minute: 60

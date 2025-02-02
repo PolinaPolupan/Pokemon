@@ -26,5 +26,3 @@ logging:
   level:
     root: INFO
 
-jwt:
-  public.key: classpath:app.pub
