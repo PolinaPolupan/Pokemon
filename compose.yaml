@@ -24,7 +24,14 @@ services:
       SPRING_JPA_HIBERNATE_DDL_AUTO: none
       FLYWAY_ENABLED: true
     depends_on:
-      - postgres
+      postgres:
+        condition: service_started
+      elasticsearch:
+        condition: service_healthy
+      keycloak:
+        condition: service_healthy
+      redis:
+        condition: service_started
     networks:
       - pokemon-network
 
@@ -127,6 +134,13 @@ services:
     environment:
       - discovery.type=single-node
       - xpack.security.enabled=false
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9200/_cat/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - pokemon-network
 
 volumes:
   postgres_data:

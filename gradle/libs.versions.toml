@@ -11,7 +11,7 @@ h2 = "1.3.148"
 datasource-proxy = "1.9.1"
 admin = "3.4.1"
 springdoc-openapi-starter-webmvc-ui = "2.8.4"
-
+elasticsearch-java = "8.17.1"
 
 [libraries]
 spring-boot-starter-web = { group = "org.springframework.boot", name = "spring-boot-starter-web" }
@@ -32,6 +32,7 @@ spring-boot-admin-server-ui = { group = "de.codecentric", name = "spring-boot-ad
 spring-batch-test = { group = "org.springframework.batch", name = "spring-batch-test" }
 spring-data-elasticsearch = { group = "org.springframework.data", name = "spring-data-elasticsearch" }
 springdoc-openapi-starter-webmvc-ui = { group = "org.springdoc", name = "springdoc-openapi-starter-webmvc-ui", version.ref = "springdoc-openapi-starter-webmvc-ui" }
+elasticsearch-java = { group = "co.elastic.clients", name = "elasticsearch-java", version.ref = "elasticsearch-java" }
 datasource-proxy-spring-boot-starter = { group = "com.github.gavlyukovskiy", name = "datasource-proxy-spring-boot-starter", version.ref = "datasource-proxy" }
 flyway-core = { group = "org.flywaydb", name = "flyway-core" }
 flyway-database-postgresql = { group = "org.flywaydb", name = "flyway-database-postgresql" }

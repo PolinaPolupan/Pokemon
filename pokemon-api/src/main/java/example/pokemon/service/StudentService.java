@@ -5,7 +5,7 @@ import example.pokemon.exception.DuplicateStudentException;
 import example.pokemon.exception.StudentNotFoundException;
 import example.pokemon.mapper.StudentMapper;
 import example.pokemon.model.Student;
-import example.pokemon.repository.StudentRepository;
+import example.pokemon.repository.jpa.StudentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
