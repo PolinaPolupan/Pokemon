@@ -48,9 +48,13 @@ spring:
       host: redis
       port: 6379
 
+  elasticsearch:
+    rest:
+      uris: http://elasticsearch:9200
 
 logging:
   level:
+    org.elasticsearch.client: DEBUG
     org:
       springframework:
         security: DEBUG
@@ -95,3 +99,8 @@ components:
 keycloak:
   auth-server-url: ${KEYCLOAK_AUTH_SERVER_URL}
   realm: ${KEYCLOAK_REALM}
+
+
+elasticsearch:
+  url: localhost:9200
+

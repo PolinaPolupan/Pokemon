@@ -29,6 +29,7 @@ dependencies {
     implementation(libs.spring.boot.starter.oauth2.resource.server)
     implementation(libs.spring.boot.admin.starter.client)
     implementation(libs.spring.data.elasticsearch)
+    //implementation(libs.elasticsearch.java)
     implementation(libs.springdoc.openapi.starter.webmvc.ui)
     implementation(libs.flyway.core)
     implementation(libs.flyway.database.postgresql)
