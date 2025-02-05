@@ -51,13 +51,13 @@ public class CardService {
                 { throw new DuplicateCardException("A card with the same owner already exists."); }
         );
 
-        cardElasticRepository.save(cardMapper.mapDtoToCard(card));
+        //cardElasticRepository.save(cardMapper.mapDtoToCard(card));
         cardRepository.save(cardMapper.mapDtoToCard(card));
     }
 
     public CardsPage getAll(Pageable page) {
 
-        Page<Card> pagedResult = cardRepository.findAll(page);
+        Page<Card> pagedResult = cardElasticRepository.findAll(page);
         List<CardDto> cards = pagedResult
                 .getContent()
                 .stream()
