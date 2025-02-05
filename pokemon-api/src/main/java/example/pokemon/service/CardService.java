@@ -51,7 +51,7 @@ public class CardService {
                 { throw new DuplicateCardException("A card with the same owner already exists."); }
         );
 
-        //cardElasticRepository.save(cardMapper.mapDtoToCard(card));
+        cardElasticRepository.save(cardMapper.mapDtoToCard(card));
         cardRepository.save(cardMapper.mapDtoToCard(card));
     }
 

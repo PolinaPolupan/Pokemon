@@ -1,6 +1,5 @@
 package example.pokemon.model;
 
-
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import example.pokemon.dto.AttackSkill;
 import example.pokemon.serialize.SkillDeserializer;
@@ -14,6 +13,7 @@ import org.hibernate.type.SqlTypes;
 
 import java.util.List;
 import java.util.UUID;
+
 
 
 @Data
