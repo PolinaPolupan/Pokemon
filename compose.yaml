@@ -119,14 +119,6 @@ services:
     networks:
       - pokemon-network
 
-  elasticsearch:
-    image: elasticsearch:8.17.1
-    ports:
-      - 9200:9200
-      - 9300:9300
-    environment:
-      - discovery.type=single-node
-      - xpack.security.enabled=false
 
 volumes:
   postgres_data:
