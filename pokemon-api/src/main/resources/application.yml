@@ -49,8 +49,9 @@ spring:
       port: 6379
 
   elasticsearch:
-    rest:
-      uris: http://elasticsearch:9200
+    uris: http://elasticsearch:9200
+    username: elastic
+    password: ${ELASTIC_PASSWORD}
 
 logging:
   level:
