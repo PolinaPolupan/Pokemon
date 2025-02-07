@@ -79,6 +79,7 @@ services:
     restart: unless-stopped
     networks:
       - pokemon-network
+      - elk
 
   keycloak:
     container_name: keycloak.openid-provider

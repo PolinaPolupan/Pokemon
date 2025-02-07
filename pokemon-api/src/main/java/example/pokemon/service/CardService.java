@@ -44,7 +44,7 @@ public class CardService {
             throw new StudentNotFoundException("Invalid null student");
         }
 
-        studentElasticRepository.findByFirstNameAndLastNameAndStudentGroup(
+        studentRepository.findByFirstNameAndLastNameAndStudentGroup(
                 card.getPokemonOwner().getFirstName(),
                 card.getPokemonOwner().getLastName(),
                 card.getPokemonOwner().getStudentGroup()).ifPresent(c ->
