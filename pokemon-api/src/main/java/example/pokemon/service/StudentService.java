@@ -5,6 +5,7 @@ import example.pokemon.exception.DuplicateStudentException;
 import example.pokemon.exception.StudentNotFoundException;
 import example.pokemon.mapper.StudentMapper;
 import example.pokemon.model.Student;
+import example.pokemon.model.StudentDocument;
 import example.pokemon.repository.elastic.StudentElasticRepository;
 import example.pokemon.repository.jpa.StudentRepository;
 import lombok.AllArgsConstructor;
@@ -56,7 +57,7 @@ public class StudentService {
     }
 
     public List<StudentDto> getByStudentGroup(String group) {
-        return repository.findByStudentGroup(group)
+        return elasticRepository.findByStudentGroup(group)
                 .stream()
                 .map(mapper::mapToDto)
                 .collect(Collectors.toList());
@@ -64,7 +65,7 @@ public class StudentService {
 
     public StudentDto getByFirstNameLastName(String firstName, String lastName) {
 
-        Student student = elasticRepository.findByFirstNameAndLastName(firstName, lastName)
+        StudentDocument student = elasticRepository.findByFirstNameAndLastName(firstName, lastName)
             .orElseThrow(() -> { throw new StudentNotFoundException("Student not found"); }
         );
 
