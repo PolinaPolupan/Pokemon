@@ -11,13 +11,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.util.List;
 import java.util.UUID;
-
 
 
 @Data
@@ -30,51 +26,38 @@ public class Card {
     @GeneratedValue(generator = "UUID")
     public UUID id;
 
-
     public String stage;
-
 
     @NotBlank(message = "Name is mandatory")
     public String name;
 
-
     @Column(columnDefinition = "smallint")
     public short hp;
-
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "evolves_from_id")
     public Card evolvesFrom;
-
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "JSON")
     @JsonDeserialize(using = SkillDeserializer.class)
     public List<AttackSkill> attackSkills;
 
-
     public String weaknessType;
-
 
     public String resistanceType;
 
-
     public String retreatCost;
-
 
     public String gameSet;
 
-
     public String pokemonType;
 
-
     public char regulationMark;
-
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "pokemon_owner_id")
     public Student pokemonOwner;
-
 
     public String cardNumber;
 }

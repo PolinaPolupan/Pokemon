@@ -1,6 +1,5 @@
 package example.pokemon.service;
 
-import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import example.pokemon.dto.CardsPage;
 import example.pokemon.exception.CardNotFoundException;
 import example.pokemon.exception.StudentNotFoundException;
@@ -27,15 +26,13 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CardService {
 
-    private final ElasticsearchClient esClient;
     private final CardRepository cardRepository;
     private final CardElasticRepository cardElasticRepository;
     private final StudentRepository studentRepository;
-    private final StudentElasticRepository studentElasticRepository;
     private final CardMapper cardMapper;
 
     public void save(CardDto card) {
-        Optional<Card> existingCard = cardElasticRepository.findByName(card.getName());
+        Optional<Card> existingCard = cardRepository.findByName(card.getName());
         existingCard.ifPresent(c ->
             { throw new DuplicateCardException("A card with the same name already exists."); }
         );
@@ -51,13 +48,12 @@ public class CardService {
                 { throw new DuplicateCardException("A card with the same owner already exists."); }
         );
 
-        //cardElasticRepository.save(cardMapper.mapDtoToCard(card));
         cardRepository.save(cardMapper.mapDtoToCard(card));
     }
 
     public CardsPage getAll(Pageable page) {
 
-        Page<Card> pagedResult = cardElasticRepository.findAll(page);
+        Page<Card> pagedResult = cardRepository.findAll(page);
         List<CardDto> cards = pagedResult
                 .getContent()
                 .stream()
