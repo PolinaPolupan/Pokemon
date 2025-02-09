@@ -2,6 +2,7 @@ package example.pokemon.controller;
 
 import example.pokemon.dto.CardImageResponse;
 import example.pokemon.dto.CardsPage;
+import example.pokemon.model.CardDocument;
 import example.pokemon.service.CardService;
 import example.pokemon.dto.CardDto;
 import example.pokemon.dto.StudentDto;

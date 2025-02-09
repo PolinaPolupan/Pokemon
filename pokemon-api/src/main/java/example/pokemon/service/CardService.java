@@ -7,9 +7,9 @@ import example.pokemon.dto.CardDto;
 import example.pokemon.exception.DuplicateCardException;
 import example.pokemon.mapper.CardMapper;
 import example.pokemon.model.Card;
+import example.pokemon.model.CardDocument;
 import example.pokemon.model.Student;
 import example.pokemon.repository.elastic.CardElasticRepository;
-import example.pokemon.repository.elastic.StudentElasticRepository;
 import example.pokemon.repository.jpa.CardRepository;
 import example.pokemon.repository.jpa.StudentRepository;
 import lombok.RequiredArgsConstructor;
@@ -70,7 +70,7 @@ public class CardService {
     }
 
     public CardDto getByName(String name) {
-        Card card = cardRepository.findByName(name).orElseThrow(
+        CardDocument card = cardElasticRepository.findByName(name).orElseThrow(
             () -> { throw new CardNotFoundException("Card not found"); }
         );
         return cardMapper.mapToDto(card);
