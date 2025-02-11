@@ -15,7 +15,7 @@ import java.util.List;
 @Document(indexName ="cards")
 public class CardDocument {
     @Id
-    @Field(type = FieldType.Keyword, name = "id")
+    @Field(type = FieldType.Keyword, name = "card_id")
     public String id;
 
     @Field(type = FieldType.Text, name = "stage")
@@ -27,8 +27,8 @@ public class CardDocument {
     @Field(type = FieldType.Short, name = "hp")
     public short hp;
 
-    @Field(type = FieldType.Object, name = "evolves_from")
-    public CardDocument evolvesFrom;
+    @Field(type = FieldType.Text, name = "evolves_from_id")
+    public String evolvesFromId;
 
     @Field(type = FieldType.Nested, name = "attack_skills")
     public List<AttackSkillDocument> attackSkills;

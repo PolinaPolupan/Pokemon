@@ -16,7 +16,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 public class StudentDocument {
 
     @Id
-    @Field(type = FieldType.Text)
+    @Field(type = FieldType.Text, name = "student_id")
     private String id;
 
     @Field(type = FieldType.Text, name = "first_name")
