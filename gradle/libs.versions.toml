@@ -26,6 +26,7 @@ spring-boot-starter-batch = { group = "org.springframework.boot", name = "spring
 spring-boot-starter-actuator = { group = "org.springframework.boot", name = "spring-boot-starter-actuator" }
 spring-boot-starter-validation = { group = "org.springframework.boot", name = "spring-boot-starter-validation" }
 spring-boot-starter-thymeleaf = { group = "org.springframework.boot", name = "spring-boot-starter-thymeleaf" }
+spring-boot-starter-hateoas = { group = "org.springframework.boot", name = "spring-boot-starter-hateoas" }
 spring-boot-admin-starter-server = { group = "de.codecentric", name = "spring-boot-admin-starter-server", version.ref = "admin" }
 spring-boot-admin-starter-client = { group = "de.codecentric", name = "spring-boot-admin-starter-client", version.ref = "admin" }
 spring-boot-admin-server-ui = { group = "de.codecentric", name = "spring-boot-admin-server-ui", version.ref = "admin" }
