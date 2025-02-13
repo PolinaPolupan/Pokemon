@@ -2,12 +2,6 @@ spring:
   application:
     name: Pokemon
 
-  batch:
-    job:
-      enabled: false
-    jdbc:
-      table-prefix: batch.batch_
-
   jpa:
     hibernate:
       ddl-auto: update
