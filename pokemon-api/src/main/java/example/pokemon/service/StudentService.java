@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -56,6 +57,14 @@ public class StudentService {
         return response;
     }
 
+    public StudentDto getById(UUID id) {
+        Student student = repository.findById(id)
+                .orElseThrow(() -> { throw new StudentNotFoundException("Student not found"); }
+                );
+
+        return mapper.mapToDto(student);
+    }
+
     public List<StudentDto> getByStudentGroup(String group) {
         return elasticRepository.findByStudentGroup(group)
                 .stream()
@@ -64,7 +73,6 @@ public class StudentService {
     }
 
     public StudentDto getByFirstNameLastName(String firstName, String lastName) {
-
         StudentDocument student = elasticRepository.findByFirstNameAndLastName(firstName, lastName)
             .orElseThrow(() -> { throw new StudentNotFoundException("Student not found"); }
         );

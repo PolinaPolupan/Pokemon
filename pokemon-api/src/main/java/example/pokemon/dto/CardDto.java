@@ -3,8 +3,10 @@ package example.pokemon.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Class indicates the given pokemon card.
@@ -13,13 +15,14 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CardDto {
+public class CardDto extends RepresentationModel<CardDto> {
+    private UUID id;
     private PokemonStage stage;
     private String cardNumber;
     private String name;
     private int hp;
     private EnergyType pokemonType;
-    private CardDto evolvesFrom;
+    private UUID evolvesFromId;
     private List<AttackSkill> attackSkills;
     private EnergyType weaknessType;
     private EnergyType resistanceType;
