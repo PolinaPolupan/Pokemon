@@ -27,7 +27,7 @@ import java.util.stream.Stream;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-public class RestConfig {
+public class AppConfig {
 
     @Bean
     public HandlerExceptionResolver createDefaultHandlerExceptionResolver() {
@@ -74,6 +74,7 @@ public class RestConfig {
         http
             .authorizeHttpRequests((authorize) -> authorize
                     .requestMatchers("/v3/**", "/swagger-ui/**").permitAll()
+                    .requestMatchers("/graphiql/**", "/graphql/**").permitAll()
                     .requestMatchers("/actuator/**").permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/v1/cards/**")
                     .hasAuthority("ADMIN")

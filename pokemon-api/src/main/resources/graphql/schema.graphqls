@@ -1,0 +1,71 @@
+type Student {
+    id: ID!
+    firstName: String
+    lastName: String
+    studentGroup: String
+}
+
+type Card {
+    id: ID!
+    stage: PokemonStage
+    name: String
+    hp: Int
+    evolvesFrom: Card
+    attackSkills: [AttackSkill]
+    weaknessType: EnergyType
+    resistanceType: EnergyType
+    retreatCost: String
+    gameSet: String
+    pokemonType: EnergyType
+    regulationMark: String
+    pokemonOwner: Student
+    cardNumber: String
+}
+
+type CardsPage {
+    cards: [Card]
+    page: Int
+    pages: Int
+    total: Int
+}
+
+type StudentsPage {
+    students: [Student]
+    page: Int
+    pages: Int
+    total: Int
+}
+
+type AttackSkill {
+    name: String
+    description: String
+    cost: String
+    damage: Int
+}
+
+enum EnergyType {
+    FIRE
+    GRASS
+    WATER
+    LIGHTNING
+    PSYCHIC
+    FIGHTING
+    DARKNESS
+    METAL
+    FAIRY
+    DRAGON
+    COLORLESS
+}
+
+enum PokemonStage {
+    BASIC
+    STAGE1
+    STAGE2
+    VSTAR
+    VMAX
+}
+
+type Query {
+    getAllCards(page: Int, size: Int): CardsPage
+    getAllStudents(page: Int, size: Int): StudentsPage
+}

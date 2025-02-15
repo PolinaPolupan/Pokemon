@@ -47,14 +47,18 @@ spring:
     username: elastic
     password: ${ELASTIC_PASSWORD}
 
+  graphql:
+    graphiql:
+      enabled: true
+
 logging:
   level:
     org.elasticsearch.client: DEBUG
-    org:
-      springframework:
-        security: DEBUG
-        security.oauth2: TRACE
-        security.jwt: TRACE
+    org.springframework.graphql: DEBUG
+    org.springframework.boot.autoconfigure.graphql: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.security.jwt: DEBUG
+    org.springframework.security.oauth2: DEBUG
     root: INFO
 
     net:
