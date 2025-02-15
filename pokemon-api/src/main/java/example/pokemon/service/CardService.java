@@ -52,7 +52,6 @@ public class CardService {
     }
 
     public CardsPage getAll(Pageable page) {
-
         Page<Card> pagedResult = cardRepository.findAll(page);
         List<CardDto> cards = pagedResult
                 .getContent()

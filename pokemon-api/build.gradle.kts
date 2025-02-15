@@ -26,6 +26,7 @@ dependencies {
     implementation(libs.spring.boot.starter.validation)
     implementation(libs.spring.boot.starter.thymeleaf)
     implementation(libs.spring.boot.starter.hateoas)
+    implementation(libs.spring.boot.starter.graphql)
     implementation(libs.spring.boot.starter.oauth2.resource.server)
     implementation(libs.spring.boot.admin.starter.client)
     implementation(libs.spring.data.elasticsearch)

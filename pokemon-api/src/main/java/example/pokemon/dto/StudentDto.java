@@ -3,6 +3,7 @@ package example.pokemon.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.util.UUID;
@@ -14,7 +15,8 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class StudentDto extends RepresentationModel<StudentDto> {
+@SchemaMapping(typeName = "Student")
+public class StudentDto {
     private UUID id;
     private String firstName;
     private String lastName;

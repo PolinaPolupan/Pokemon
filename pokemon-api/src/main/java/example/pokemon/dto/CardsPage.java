@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CardsPage extends RepresentationModel<CardsPage> {
+public class CardsPage {
     List<CardDto> cards;
     int page;
     int pages;
