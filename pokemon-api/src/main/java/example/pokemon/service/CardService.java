@@ -1,5 +1,6 @@
 package example.pokemon.service;
 
+import example.pokemon.dto.CardInput;
 import example.pokemon.dto.CardsPage;
 import example.pokemon.exception.CardNotFoundException;
 import example.pokemon.exception.StudentNotFoundException;
@@ -31,24 +32,28 @@ public class CardService {
     private final StudentRepository studentRepository;
     private final CardMapper cardMapper;
 
-    public void save(CardDto card) {
+    public void save(CardInput card) {
         Optional<Card> existingCard = cardRepository.findByName(card.getName());
         existingCard.ifPresent(c ->
             { throw new DuplicateCardException("A card with the same name already exists."); }
         );
 
-        if (card.getPokemonOwner() == null) {
+        if (card.getPokemonOwnerId() == null) {
             throw new StudentNotFoundException("Invalid null student");
         }
 
+        Student student = studentRepository.findById(card.getPokemonOwnerId()).orElseThrow(
+                () -> { throw new StudentNotFoundException("Student not found"); }
+        );
+
         studentRepository.findByFirstNameAndLastNameAndStudentGroup(
-                card.getPokemonOwner().getFirstName(),
-                card.getPokemonOwner().getLastName(),
-                card.getPokemonOwner().getStudentGroup()).ifPresent(c ->
+                student.getFirstName(),
+                student.getLastName(),
+                student.getStudentGroup()).ifPresent(c ->
                 { throw new DuplicateCardException("A card with the same owner already exists."); }
         );
 
-        cardRepository.save(cardMapper.mapDtoToCard(card));
+        cardRepository.save(cardMapper.mapInputToCard(card));
     }
 
     public CardsPage getAll(Pageable page) {

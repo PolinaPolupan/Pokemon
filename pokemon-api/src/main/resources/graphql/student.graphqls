@@ -1,0 +1,19 @@
+type Student {
+    id: ID!
+    firstName: String
+    lastName: String
+    studentGroup: String
+}
+
+type StudentsPage {
+    students: [Student]
+    page: Int
+    pages: Int
+    total: Int
+}
+
+input StudentInput {
+    firstName: String
+    lastName: String
+    studentGroup: String
+}
