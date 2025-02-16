@@ -1,6 +1,7 @@
 package example.pokemon.mapper;
 
 import example.pokemon.dto.CardDto;
+import example.pokemon.dto.CardInput;
 import example.pokemon.dto.EnergyType;
 import example.pokemon.model.Card;
 import example.pokemon.model.CardDocument;
@@ -18,9 +19,10 @@ public interface CardMapper {
     @Mapping(source = "resistanceType", target = "resistanceType", qualifiedByName = "stringToEnergyType")
     CardDto mapToDto(CardDocument cardDocument);
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(source = "weaknessType", target = "weaknessType", qualifiedByName = "energyTypeToString")
     @Mapping(source = "resistanceType", target = "resistanceType", qualifiedByName = "energyTypeToString")
-    Card mapDtoToCard(CardDto dto);
+    Card mapInputToCard(CardInput dto);
 
     @Named("stringToEnergyType")
     default EnergyType stringToEnergyType(String type) {

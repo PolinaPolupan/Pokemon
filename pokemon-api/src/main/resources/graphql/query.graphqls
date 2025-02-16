@@ -1,0 +1,11 @@
+type Query {
+    getAllCards(page: Int, size: Int): CardsPage
+    getCardById(id: ID): Card
+    getCardByName(name: String): Card
+    getCardByOwner(ownerId: ID): Card
+
+    getAllStudents(page: Int, size: Int): StudentsPage
+    getStudentById(id: ID): Student
+    getByStudentGroup(group: String): [Student]
+    getStudentByFullName(firstName: String,lastName: String): Student
+}

@@ -1,10 +1,3 @@
-type Student {
-    id: ID!
-    firstName: String
-    lastName: String
-    studentGroup: String
-}
-
 type Card {
     id: ID!
     stage: PokemonStage
@@ -29,14 +22,14 @@ type CardsPage {
     total: Int
 }
 
-type StudentsPage {
-    students: [Student]
-    page: Int
-    pages: Int
-    total: Int
+type AttackSkill {
+    name: String
+    description: String
+    cost: String
+    damage: Int
 }
 
-type AttackSkill {
+input AttackSkillInput {
     name: String
     description: String
     cost: String
@@ -65,7 +58,18 @@ enum PokemonStage {
     VMAX
 }
 
-type Query {
-    getAllCards(page: Int, size: Int): CardsPage
-    getAllStudents(page: Int, size: Int): StudentsPage
+input CardInput {
+    stage: PokemonStage
+    name: String
+    hp: Int
+    evolvesFromId: ID
+    attackSkills: [AttackSkillInput]
+    weaknessType: EnergyType
+    resistanceType: EnergyType
+    retreatCost: String
+    gameSet: String
+    pokemonType: EnergyType
+    regulationMark: String
+    pokemonOwnerId: ID
+    cardNumber: String
 }
